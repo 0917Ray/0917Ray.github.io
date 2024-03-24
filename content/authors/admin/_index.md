@@ -117,5 +117,5 @@ social:
 highlight_name: true
 ---
 
-Changrui Fang is a student at the School of Mathematics and Statistics, Wuhan University, specializing in Computational Mathematics. His research interests lie in the numerical solution of Partial Differential Equations (PDEs), Deep Learning, and optimization problems, particularly their applications in Machine Learning. Currently, he is seeking opportunities for direct PhD admission.
+Changrui Fang is a undergraduate student at the School of Mathematics and Statistics, Wuhan University, specializing in Computational Mathematics. His research interests lie in the numerical solution of Partial Differential Equations (PDEs), Deep Learning, and optimization problems, particularly their applications in Machine Learning. Currently, he is seeking opportunities for direct PhD admission.
 {style="text-align: justify;"}
