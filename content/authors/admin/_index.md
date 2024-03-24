@@ -120,5 +120,5 @@ social:
 highlight_name: true
 ---
 
-Chien Shiung Wu is a professor of artificial intelligence at the Stanford AI Lab. Her research interests include distributed robotics, mobile computing and programmable matter. She leads the Robotic Neurobiology group, which develops self-reconfiguring robots, systems of self-organizing robots, and mobile sensor networks.
+Changrui Fang is a student at the School of Mathematics and Statistics, Wuhan University, specializing in Computational Mathematics. His research interests lie in the numerical solution of Partial Differential Equations (PDEs), Deep Learning, and optimization problems, particularly their applications in Machine Learning. Currently, he is seeking opportunities for direct PhD admission.
 {style="text-align: justify;"}
