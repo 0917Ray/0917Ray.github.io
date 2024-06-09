@@ -111,7 +111,7 @@ social:
   # and uncomment the lines below.
   - icon: cv
     icon_pack: ai
-    link: uploads/Changrui Fang(no call).pdf
+    link: uploads/CV in English.pdf
 
 # Highlight the author in author lists? (true/false)
 highlight_name: true
