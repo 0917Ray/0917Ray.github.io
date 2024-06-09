@@ -111,7 +111,7 @@ social:
   # and uncomment the lines below.
   - icon: cv
     icon_pack: ai
-    link: uploads/Changrui Fang(no call).pdf
+    link: /workspaces/0917Ray.github.io/static/uploads/Changrui Fang(no call).pdf
 
 # Highlight the author in author lists? (true/false)
 highlight_name: true
