@@ -40,3 +40,8 @@ My research interests include machine learning and optimization theory.
 
 # 💻 Internships
 - No one here
+
+# Hobbies
+- Traveling with my girlfriend 🥰
+- Photography 📸
+- Running 🏃🏻‍➡️
