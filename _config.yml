@@ -7,9 +7,10 @@
 
 # Site Settings
 title                    : "FANG Changrui (方昌瑞)"
-description              : "Undergraduate at Wuhan University. Focusing on machine learning and optimization."
+description              : "Undergraduate at Wuhan University."
 repository               : "0917Ray.github.io"
-google_scholar_stats_use_cdn : true
+google_scholar_stats_use_cdn : false
+# can be true
 
 # google analytics
 google_analytics_id      :  # get google_analytics_id from https://analytics.google.com/analytics/
@@ -43,7 +44,7 @@ author:
   instagram        :
   impactstory      : # e.g., "https://profiles.impactstory.org/u/xxxx-xxxx-xxxx-xxxx"
   lastfm           :
-  linkedin         : # e.g., "linkedin username"
+  linkedin         : Changrui (Ray) FANG # e.g., "linkedin username"
   dblp             : # e.g., "https://dblp.org/pid/xx/xxxx.html"
   orcid            : # e.g., "https://orcid.org/xxxx"
   pinterest        :
