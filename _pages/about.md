@@ -28,11 +28,11 @@ My research interests include machine learning and optimization theory.
 - No one here
 
 # 🎖 Honors and Awards
-- *2023.11* National Second Prize (Top 2% of 180,000) (China Undergraduate Mathematical Contest in Modeling(CUMCM))
-- *2021.09* Freshman Scholarship(Undergraduate) (Top 10%)
+- *2023.11* National Second Prize (Top 2% of 180,000) (China Undergraduate Mathematical Contest in Modeling(CUMCM)).
+- *2021.09* Freshman Scholarship(Undergraduate) (Top 10%).
 
 # 📖 Educations
-- *2023.02 - 2025.06 (now)*, Undergraduate, Information and Computational Science, Wuhan University, Wuhan
+- *2023.02 - 2025.06 (now)*, Undergraduate, Information and Computational Science, Wuhan University, Wuhan.
 - *2021.09 - 2023.02*, Undergraduate, Hongyi Honor School(Mathematics), Wuhan University, Wuhan.
 - *2018.09 - 2021.06*, Chuzhou Middle School, Chuzhou
 # 💬 Invited Talks
