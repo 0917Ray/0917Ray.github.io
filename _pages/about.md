@@ -21,13 +21,14 @@ I am an undergraduate student at Wuhan University, majoring in Information and C
 
 My research interests include machine learning and optimization theory.
 
-# News
+# 🔥 News
 - *2023.11* I won the ***National Second Prize (Top 2% of 180,000)*** at the *[China Undergraduate Mathematical Contest in Modeling](https://www.mcm.edu.cn/)* with my teammates LIAO Yang and ZHOU Dingbo!
 
 # 📝 Publications 
 - No one here
 
 # 🎖 Honors and Awards
+- *2023.12* National Encouragement Scholarship.
 - *2023.11* National Second Prize (Top 2% of 180,000) (China Undergraduate Mathematical Contest in Modeling(CUMCM)).
 - *2021.09* Freshman Scholarship(Undergraduate) (Top 10%).
 
