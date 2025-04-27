@@ -21,9 +21,6 @@ I am an undergraduate student at Wuhan University, majoring in Information and C
 
 My research interests include machine learning and optimization theory.
 
-# 🔥 News
-- No one here
-
 # 📝 Publications 
 - No one here
 
@@ -36,9 +33,6 @@ My research interests include machine learning and optimization theory.
 - *2021.09 - 2023.02*, Undergraduate, Hongyi Honor School(Mathematics), Wuhan University, Wuhan.
 - *2018.09 - 2021.06*, Chuzhou Middle School, Chuzhou
 # 💬 Invited Talks
-- No one here
-
-# 💻 Internships
 - No one here
 
 # 📋 Hobbies
