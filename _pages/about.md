@@ -24,7 +24,7 @@ My research interests include machine learning and optimization theory.
 # 🎯 News
 - *2023.11* I won the ***[National Second Prize (Top 2% of 180,000)](https://www.mcm.edu.cn/upload_cn/node/701/6XE4ZF5Oc3573e0779f6cd8e31d79a6e9f6fd13d.pdf)*** at the *[China Undergraduate Mathematical Contest in Modeling](https://en.mcm.edu.cn/)* with my teammates LIAO Yang and ZHOU Dingbo!
 
-# 📝 Publications 
+# 📚️ Publications 
 - No one here
 
 # 🏆️ Honors and Awards
@@ -41,3 +41,8 @@ My research interests include machine learning and optimization theory.
 - Traveling with my girlfriend 🥰
 - Photography 📸
 - Running 🏃🏻‍➡️
+
+# 📝 Reading Notes
+I enjoy taking notes when I learn new things and I put them on Github. Here is the list:
+- [Machine Learning, Stanford CS229](https://github.com/0917Ray/Reading_Notes/tree/main/CS229)
+- [Reinforcement Learning, Westlake University](https://github.com/0917Ray/Reading_Notes/tree/main/Reinfoce%20Learning)
