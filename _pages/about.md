@@ -34,7 +34,7 @@ My research interests include machine learning and optimization theory.
 
 # 📖 Educations
 - *2023.02 - 2025.06 (now)*, Undergraduate, Information and Computational Science, Wuhan University, Wuhan.
-- *2021.09 - 2023.02*, Undergraduate, Hongyi Honor School(Mathematics), Wuhan University, Wuhan.
+- *2021.09 - 2023.02*, Undergraduate, Hongyi Honor College(Mathematics), Wuhan University, Wuhan.
 - *2018.09 - 2021.06*, Chuzhou Middle School, Chuzhou
 
 # 📸 Hobbies
