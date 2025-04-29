@@ -17,7 +17,7 @@ redirect_from:
 
 <span class='anchor' id='about-me'></span>
 
-I am an undergraduate student at Wuhan University, majoring in Information and Computational Science.
+I am an undergraduate student at Wuhan University, majoring in Information and Computational Science(also called Computational Mathematics). During my undergraduate studies, I was fortunate to receive guidance from Prof. [ZHANG Jiwei(张继伟)](https://scholar.google.com.hk/citations?user=8yZhQ7kAAAAJ&hl=en&oi=ao) and Prof. HU Jie(胡捷).
 
 My research interests include machine learning and optimization theory.
 
