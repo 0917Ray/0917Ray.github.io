@@ -23,7 +23,7 @@ I will begin my doctoral studies in Fall 2025, at [CS department](https://www.cs
 
 My research interests include machine learning and optimization theory.
 
-Here is my [CV(Curriculum Vitae)](https://drive.google.com/file/d/12cAODKzwE4cN3oWt5I6nZDeHwUSEqgE0/view?usp=sharing)
+Here is my [CV(Curriculum Vitae)](https://drive.google.com/file/d/1o9ylZCkhPpjhzNQq3MjY2oKJDbbUHz08/view?usp=sharing)
 
 # 🎯 News
 - *2025.04* I was selected as the [outstanding undergraduate graduate of the School of Mathematics and Statistics in 2025](https://maths.whu.edu.cn/info/1197/134921.htm).
