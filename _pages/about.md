@@ -23,7 +23,7 @@ I will begin my doctoral studies in Fall 2025, at [CS department](https://www.cs
 
 My research interests include machine learning and optimization theory.
 
-Here is my CV(Curriculum Vitae)
+Here are my CV(Curriculum Vitae)
 - [CV in English](https://drive.google.com/file/d/1o9ylZCkhPpjhzNQq3MjY2oKJDbbUHz08/view?usp=sharing)
 - [CV in Chinese](https://drive.google.com/file/d/1dT1rMi2gaGKwHVtpV89YlYGM1c2sl__V/view?usp=sharing)
 
