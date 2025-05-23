@@ -21,7 +21,7 @@ Now I am an undergraduate student at Wuhan University, majoring in Information a
 
 I will begin my doctoral studies in Fall 2025, at [CS department](https://www.cs.cityu.edu.hk/) of City University of Hong Kong, where I will supervised by Prof. [MA Ziye(马梓业)](https://gavenma.github.io/).
 
-My research interests include machine learning and optimization theory.
+My research interest lies in understanding machine learning from an optimization perspective, including non-convex problems and new optimization algorithm.
 
 Here are my CV(Curriculum Vitae)
 - [CV in English](https://drive.google.com/file/d/1o9ylZCkhPpjhzNQq3MjY2oKJDbbUHz08/view?usp=sharing)
