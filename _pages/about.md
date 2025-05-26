@@ -76,7 +76,7 @@ I enjoy taking notes when I learn new things and I put them on Github. Here is t
   </div>
 
   <!-- 图表画布 -->
-  <canvas id="fansChart" style="width: 100%; height: 320px;"></canvas>
+  <canvas id="fansChart" style="width: 100%; height: 220px;"></canvas>
 </div>
 
 <style>
@@ -114,7 +114,7 @@ I enjoy taking notes when I learn new things and I put them on Github. Here is t
 <script>
   const SHEET_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQUX3jbmcxIjz_VyFAy33PJzbYPVKPVXIEOSMdoy7bqRPOl-y1n-lZe8pkZ55WYwkQaqGEAQ0D_idrc/pub?output=csv';
   const chartColor = 'rgba(125,181,168,1)';
-  const fillColor = 'rgba(125,181,168,0.95)';
+  const fillColor = 'rgba(125,181,168,0.05)';
   let chart, totalData = [], dailyData = [], labels = [];
 
   async function fetchData() {
