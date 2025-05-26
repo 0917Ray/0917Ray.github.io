@@ -105,7 +105,7 @@ I enjoy taking notes when I learn new things and I put them on Github. Here is t
   }
   button {
     border: none;
-    background: rgb(125,181,168,0.5);
+    background: rgb(125,181,168,0.65);
     color: white;
     border-radius: 6px;
     padding: 6px 12px;
@@ -197,7 +197,7 @@ I enjoy taking notes when I learn new things and I put them on Github. Here is t
           pointRadius: function(ctx) {
             const index = ctx.dataIndex;
             if (type === 'daily' && dailyData[index] === Math.max(...dailyData)) {
-              return 5;
+              return 3;
             }
             return 0;
           },
@@ -209,7 +209,7 @@ I enjoy taking notes when I learn new things and I put them on Github. Here is t
             return chartColor;
           },
           tension: 0.3,
-          borderWidth: 2
+          borderWidth: 1.5
         }]
       },
       options: {
