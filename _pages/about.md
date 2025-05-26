@@ -59,9 +59,11 @@ I enjoy taking notes when I learn new things and I put them on Github. Here is t
 - [Reinforcement Learning](https://github.com/0917Ray/Reading_Notes/tree/main/Reinfoce%20Learning), by [Shiyu Zhao](https://www.shiyuzhao.net/), Westlake University
 - [Optimization for data analysis](https://github.com/0917Ray/Reading_Notes/tree/main/Optimization%20for%20Data%20Analysis), by [STEPHEN J. WRIGHT](https://wrightstephen.github.io/sw_proj/) and [BENJAMIN RECHT](https://people.eecs.berkeley.edu/~brecht/index.html)
 
-# 📊 小红书粉丝数展示
-<h2>当前小红书粉丝数：<span id="current-fans">加载中...</span></h2>
+# 📕 Xiaohongshu(Rednote) Followers Tracker
+
+<h2>Current Xiaohongshu Followers: <span id="current-fans">Loading...</span></h2>
 <canvas id="fansChart" width="100%" height="300"></canvas>
+<p style="font-size: 0.9em; color: gray;">* Data manually updated daily from <strong>Google Sheet: xiahongshu_fans</strong></p>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/tabletop@1.5.1/tabletop.min.js"></script>
@@ -85,14 +87,14 @@ I enjoy taking notes when I learn new things and I put them on Github. Here is t
       counts.push(Number(row['count']));
     });
 
-    document.getElementById('current-fans').innerText = counts[counts.length - 1];
+    document.getElementById('current-fans').innerText = counts.at(-1);
 
     new Chart(document.getElementById('fansChart'), {
       type: 'line',
       data: {
         labels: labels,
         datasets: [{
-          label: '粉丝数变化',
+          label: 'Follower Count',
           data: counts,
           borderWidth: 2,
           fill: true,
@@ -107,13 +109,13 @@ I enjoy taking notes when I learn new things and I put them on Github. Here is t
         },
         scales: {
           x: {
-            title: { display: true, text: '日期' },
+            title: { display: true, text: 'Date' },
             ticks: {
               maxTicksLimit: 10
             }
           },
           y: {
-            title: { display: true, text: '粉丝数' },
+            title: { display: true, text: 'Followers' },
             beginAtZero: false
           }
         }
