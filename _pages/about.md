@@ -209,7 +209,7 @@ I enjoy taking notes when I learn new things and I put them on Github. Here is t
 .post-content p a,
 .post-content li a {
   color: rgb(125,181,168);
-  background-color: rgba(125,181,168, 0.09);
+  background-color: rgba(125,181,168, 0.00);
   padding: 2px 4px;
   border-radius: 4px;
   text-decoration: none;
