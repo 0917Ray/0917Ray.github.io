@@ -76,7 +76,7 @@ I enjoy taking notes when I learn new things and I put them on Github. Here is t
   </div>
 
   <!-- 图表画布 -->
-  <canvas id="fansChart" style="width: 100%; height: 220px;"></canvas>
+  <canvas id="fansChart" style="width: 100%; height: 180px;"></canvas>
 </div>
 
 <style>
