@@ -215,7 +215,7 @@ p a, li a {
 
 p a:hover, li a:hover {
   color: rgb(105,161,148);
-  background-color: rgba(125,181,168, 0.12);
+  background-color: rgba(125,181,168, 0.15);
 }
 </style>
 
