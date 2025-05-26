@@ -201,3 +201,21 @@ I enjoy taking notes when I learn new things and I put them on Github. Here is t
   window.addEventListener('DOMContentLoaded', fetchData);
 </script>
 
+
+<style>
+/* 针对正文中的超链接 */
+p a, li a {
+  color: rgb(125,181,168);
+  background-color: rgba(125,181,168, 0.05);
+  padding: 2px 4px;
+  border-radius: 4px;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+p a:hover, li a:hover {
+  color: rgb(105,161,148);
+  background-color: rgba(125,181,168, 0.12);
+}
+</style>
+
