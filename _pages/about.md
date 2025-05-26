@@ -58,3 +58,69 @@ I enjoy taking notes when I learn new things and I put them on Github. Here is t
 - [Machine Learning](https://github.com/0917Ray/Reading_Notes/tree/main/CS229), [CS229](https://cs229.stanford.edu/), Stanford
 - [Reinforcement Learning](https://github.com/0917Ray/Reading_Notes/tree/main/Reinfoce%20Learning), by [Shiyu Zhao](https://www.shiyuzhao.net/), Westlake University
 - [Optimization for data analysis](https://github.com/0917Ray/Reading_Notes/tree/main/Optimization%20for%20Data%20Analysis), by [STEPHEN J. WRIGHT](https://wrightstephen.github.io/sw_proj/) and [BENJAMIN RECHT](https://people.eecs.berkeley.edu/~brecht/index.html)
+
+# 📊 小红书粉丝数展示
+<h2>当前小红书粉丝数：<span id="current-fans">加载中...</span></h2>
+<canvas id="fansChart" width="100%" height="300"></canvas>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/tabletop@1.5.1/tabletop.min.js"></script>
+<script>
+  const publicSpreadsheetUrl = 'https://docs.google.com/spreadsheets/d/1P5sppWlUhhD1onEAYQmUq8JLbKuY3in5PZh-xblOApw/pubhtml';
+
+  function init() {
+    Tabletop.init({
+      key: publicSpreadsheetUrl,
+      simpleSheet: true,
+      callback: showInfo
+    });
+  }
+
+  function showInfo(data) {
+    const labels = [];
+    const counts = [];
+
+    data.forEach(row => {
+      labels.push(row['date']);
+      counts.push(Number(row['count']));
+    });
+
+    document.getElementById('current-fans').innerText = counts[counts.length - 1];
+
+    new Chart(document.getElementById('fansChart'), {
+      type: 'line',
+      data: {
+        labels: labels,
+        datasets: [{
+          label: '粉丝数变化',
+          data: counts,
+          borderWidth: 2,
+          fill: true,
+          pointRadius: 0,
+          tension: 0.25
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: { display: false }
+        },
+        scales: {
+          x: {
+            title: { display: true, text: '日期' },
+            ticks: {
+              maxTicksLimit: 10
+            }
+          },
+          y: {
+            title: { display: true, text: '粉丝数' },
+            beginAtZero: false
+          }
+        }
+      }
+    });
+  }
+
+  window.addEventListener('DOMContentLoaded', init);
+</script>
+
