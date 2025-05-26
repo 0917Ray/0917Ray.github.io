@@ -60,9 +60,13 @@ I enjoy taking notes when I learn new things and I put them on Github. Here is t
 - [Optimization for data analysis](https://github.com/0917Ray/Reading_Notes/tree/main/Optimization%20for%20Data%20Analysis), by [STEPHEN J. WRIGHT](https://wrightstephen.github.io/sw_proj/) and [BENJAMIN RECHT](https://people.eecs.berkeley.edu/~brecht/index.html)
 
 # 📕 Xiaohongshu(Rednote) Followers Tracker
-<h2>Current Xiaohongshu Followers: <span id="current-fans">Loading...</span></h2>
-<canvas id="fansChart" width="100%" height="300"></canvas>
-<p style="font-size: 0.9em; color: gray;">* Data manually updated daily from <strong>Google Sheet: xiahongshu_fans</strong></p>
+<div style="max-width: 700px; margin: 0 auto; padding: 24px; background: white; border-radius: 18px; box-shadow: 0 8px 30px rgba(0,0,0,0.05); font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
+  <h2 style="font-size: 1.5rem; font-weight: 600; margin-bottom: 10px;">Current Xiaohongshu Followers: 
+    <span id="current-fans" style="color: #007aff;">Loading...</span>
+  </h2>
+  <canvas id="fansChart" style="width: 100%; height: 300px;"></canvas>
+  <p style="font-size: 0.85rem; color: #888; margin-top: 12px;">* Data manually updated daily from <strong>Google Sheet: xiahongshu_fans</strong></p>
+</div>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
@@ -70,16 +74,10 @@ I enjoy taking notes when I learn new things and I put them on Github. Here is t
     const response = await fetch('https://docs.google.com/spreadsheets/d/e/2PACX-1vQUX3jbmcxIjz_VyFAy33PJzbYPVKPVXIEOSMdoy7bqRPOl-y1n-lZe8pkZ55WYwkQaqGEAQ0D_idrc/pub?output=csv');
     const csvText = await response.text();
 
-    // Handle BOM and line breaks
     const lines = csvText.trim().split(/\r?\n/);
     const headers = lines[0].replace(/^\uFEFF/, '').split(',');
     const dateIndex = headers.findIndex(h => h.trim().toLowerCase() === 'date');
     const countIndex = headers.findIndex(h => h.trim().toLowerCase() === 'count');
-
-    if (dateIndex === -1 || countIndex === -1) {
-      console.error('CSV headers "date" or "count" not found.');
-      return;
-    }
 
     const labels = [], data = [];
 
@@ -98,10 +96,8 @@ I enjoy taking notes when I learn new things and I put them on Github. Here is t
       return;
     }
 
-    // Update current follower count
     document.getElementById('current-fans').innerText = data.at(-1);
 
-    // Draw chart
     new Chart(document.getElementById('fansChart'), {
       type: 'line',
       data: {
@@ -111,10 +107,10 @@ I enjoy taking notes when I learn new things and I put them on Github. Here is t
           data: data,
           borderWidth: 2,
           fill: true,
-          backgroundColor: 'rgba(54, 162, 235, 0.1)',
-          borderColor: 'rgba(54, 162, 235, 1)',
+          pointRadius: 0,
           tension: 0.3,
-          pointRadius: 0
+          backgroundColor: 'rgba(0, 122, 255, 0.1)',
+          borderColor: 'rgba(0, 122, 255, 1)'
         }]
       },
       options: {
@@ -124,11 +120,18 @@ I enjoy taking notes when I learn new things and I put them on Github. Here is t
         },
         scales: {
           x: {
-            title: { display: true, text: 'Date' },
-            ticks: { maxTicksLimit: 12 }
+            title: { display: false },
+            ticks: {
+              color: '#666',
+              font: { size: 11 }
+            }
           },
           y: {
-            title: { display: true, text: 'Followers' },
+            title: { display: false },
+            ticks: {
+              color: '#666',
+              font: { size: 11 }
+            },
             beginAtZero: false
           }
         }
@@ -138,4 +141,3 @@ I enjoy taking notes when I learn new things and I put them on Github. Here is t
 
   window.addEventListener('DOMContentLoaded', loadCSVData);
 </script>
-
