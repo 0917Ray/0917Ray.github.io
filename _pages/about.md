@@ -16,7 +16,7 @@ redirect_from:
 {% assign url = gsDataBaseUrl | append: "google-scholar-stats/gs_data_shieldsio.json" %}
 
 <span class='anchor' id='about-me'></span>
-
+<!-- ========================================================================================================================================== -->
 Now I am an undergraduate student at Wuhan University, majoring in Information and Computational Science(also called Computational Mathematics). During my undergraduate studies, I was fortunate to receive guidance from Prof. [ZHANG Jiwei(张继伟)](https://scholar.google.com.hk/citations?user=8yZhQ7kAAAAJ&hl=en&oi=ao) and Prof. HU Jie(胡捷).
 
 I will begin my doctoral studies in Fall 2025, at [CS department](https://www.cs.cityu.edu.hk/) of City University of Hong Kong, where I will supervised by Prof. [MA Ziye(马梓业)](https://gavenma.github.io/).
@@ -26,33 +26,33 @@ My research interest lies in understanding machine learning from an optimization
 Here are my CV(Curriculum Vitae)
 - [CV in English](https://drive.google.com/file/d/1o9ylZCkhPpjhzNQq3MjY2oKJDbbUHz08/view?usp=sharing)
 - [CV in Chinese](https://drive.google.com/file/d/1dT1rMi2gaGKwHVtpV89YlYGM1c2sl__V/view?usp=sharing)
-
+<!-- ========================================================================================================================================== -->
 # 🎯 News
 - *2025.04* I was selected as the [outstanding undergraduate graduate of the School of Mathematics and Statistics in 2025](https://maths.whu.edu.cn/info/1197/134921.htm).
 - *2025.05.10* I have completed my undergraduate thesis defense, so happy!
 - *2025.05.06* I accepted the PhD offer from CS department of CityUHK!
 - *2023.11* I won the ***[National Second Prize (Top 2% of 180,000)](https://www.mcm.edu.cn/upload_cn/node/701/6XE4ZF5Oc3573e0779f6cd8e31d79a6e9f6fd13d.pdf)*** at the *[China Undergraduate Mathematical Contest in Modeling](https://en.mcm.edu.cn/)* with my teammates LIAO Yang(廖洋) and ZHOU Dingbo(周定波)!
-
+<!-- ========================================================================================================================================== -->
 # 📚️ Publications
 - No one here
-
+<!-- ========================================================================================================================================== -->
 # 🏆️ Honors and Awards
 - *2025.04* Outstanding undergraduate graduates of the School of Mathematics and Statistics, Class of 2025
 - *2023.12* National Encouragement Scholarship.
 - *2023.11* National Second Prize (Top 2% of 180,000) (China Undergraduate Mathematical Contest in Modeling(CUMCM)).
 - *2021.09* Freshman Scholarship(Undergraduate) (Top 10%).
-
+<!-- ========================================================================================================================================== -->
 # 📖 Educations
 - *2025.09 (next) -～*, Phd student, Computer Science, City University of Hong Kong.
 - *2023.02 - 2025.06 (now)*, Undergraduate, Information and Computational Science, Wuhan University, Wuhan.
 - *2021.09 - 2023.02*, Undergraduate, [Hongyi Honor College](https://hyxt.whu.edu.cn/)(Mathematics), Wuhan University, Wuhan.
 - *2018.09 - 2021.06*, [Chuzhou Middle School](http://www.ahczzx.cn/Site/index.html), Chuzhou
-
+<!-- ========================================================================================================================================== -->
 # 📸 Hobbies
 - Traveling with my girlfriend 🥰
 - Photography 📸
 - Running 🏃🏻‍➡️
-
+<!-- ========================================================================================================================================== -->
 # 📝 Reading Notes
 I enjoy taking notes when I learn new things and I put them on Github. Here is the list:
 - [Machine Learning](https://github.com/0917Ray/Reading_Notes/tree/main/CS229), [CS229](https://cs229.stanford.edu/), Stanford
@@ -242,9 +242,238 @@ I enjoy taking notes when I learn new things and I put them on Github. Here is t
 
   window.addEventListener('DOMContentLoaded', fetchData);
 </script>
+<!-- ========================================================================================================================================== -->
+<!-- Xiaohongshu Tracker with Zoom, Pan, and Time Range Filters -->
 
+<!-- Chart.js + Zoom Plugin -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-zoom@2.0.1/dist/chartjs-plugin-zoom.min.js"></script>
+<!-- ========================================================================================================================================== -->
+# 📕 Test
 
+<div id="fans-wrapper" style="max-width: 800px; margin: 0 auto; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
+  <!-- 时间范围切换按钮 -->
+  <div style="margin-bottom: 12px;">
+    <button onclick="setRange('7')">Last 7 Days</button>
+    <button onclick="setRange('30')">Last 30 Days</button>
+    <button onclick="setRange('all')">All</button>
+  </div>
 
+  <!-- 卡片统计区 -->
+  <div style="display: flex; gap: 12px; flex-wrap: wrap; justify-content: space-between; margin-bottom: 16px;">
+    <div class="fans-card" id="card-total"></div>
+    <div class="fans-card" id="card-today"></div>
+    <div class="fans-card" id="card-7d"></div>
+    <div class="fans-card" id="card-30d"></div>
+    <div class="fans-card" id="card-maxday"></div>
+    <div class="fans-card" id="card-growthrate"></div>
+  </div>
+
+  <!-- 图表切换按钮 -->
+  <div style="margin-bottom: 10px;">
+    <button onclick="switchChart('total')">Total Followers</button>
+    <button onclick="switchChart('daily')">Daily Growth</button>
+    <button onclick="switchChart('rate')">Growth Rate (%)</button>
+  </div>
+
+  <!-- 图表容器 -->
+  <div style="height: 240px;">
+    <canvas id="fansChart" style="width: 100%;"></canvas>
+  </div>
+</div>
+
+<style>
+  .fans-card {
+    flex: 1;
+    min-width: 160px;
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.05);
+    padding: 14px 18px;
+    color: #333;
+    font-size: 0.9rem;
+  }
+  .fans-card span {
+    display: block;
+    font-weight: bold;
+    font-size: 1.5rem;
+    margin-top: 6px;
+    color: rgb(125,181,168);
+  }
+  button {
+    border: 1px solid rgba(125,181,168, 0.4);
+    background: rgba(125,181,168, 0.2);
+    color: rgb(70, 120, 110);
+    border-radius: 6px;
+    padding: 6px 12px;
+    margin-right: 10px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background 0.3s ease;
+  }
+  button:hover {
+    background: rgba(125,181,168, 0.35);
+  }
+</style>
+
+<script>
+const SHEET_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQUX3jbmcxIjz_VyFAy33PJzbYPVKPVXIEOSMdoy7bqRPOl-y1n-lZe8pkZ55WYwkQaqGEAQ0D_idrc/pub?output=csv';
+const chartColor = 'rgba(125,181,168,0.95)';
+const fillColor = 'rgba(125,181,168,0.25)';
+let chart, allLabels = [], allCounts = [], labels = [], totalData = [], dailyData = [], rateData = [];
+let range = 'all';
+
+async function fetchData() {
+  const res = await fetch(SHEET_CSV_URL);
+  const text = await res.text();
+  const rows = text.trim().split(/\r?\n/).map(line => line.split(','));
+  const head = rows[0];
+  const dateIdx = head.findIndex(h => h.trim().toLowerCase() === 'date');
+  const countIdx = head.findIndex(h => h.trim().toLowerCase() === 'count');
+
+  for (let i = 1; i < rows.length; i++) {
+    const date = rows[i][dateIdx]?.trim();
+    const count = parseInt(rows[i][countIdx]?.trim(), 10);
+    if (date >= '2025/03/02' && !isNaN(count)) {
+      allLabels.push(date);
+      allCounts.push(count);
+    }
+  }
+  drawChart('total');
+}
+
+function applyRange() {
+  if (range === '7') return [allLabels.slice(-7), allCounts.slice(-7)];
+  if (range === '30') return [allLabels.slice(-30), allCounts.slice(-30)];
+  return [allLabels, allCounts];
+}
+
+function updateStats() {
+  const latest = totalData.at(-1);
+  const yesterday = totalData.at(-2);
+  const last7 = totalData.slice(-7);
+  const last30 = totalData.slice(-30);
+  const sum7 = last7.at(-1) - last7[0];
+  const sum30 = last30.at(-1) - last30[0];
+  const avgRate7 = rateData.slice(-7).reduce((a, b) => a + b, 0) / 7;
+
+  const maxGrowth = Math.max(...dailyData);
+  const maxIndex = dailyData.findIndex(x => x === maxGrowth);
+  const maxDate = labels[maxIndex];
+
+  document.getElementById('card-total').innerHTML = `Total Followers<span>${latest}</span>`;
+  document.getElementById('card-today').innerHTML = `Today's Growth<span>${latest - yesterday}</span>`;
+  document.getElementById('card-7d').innerHTML = `7-Day Growth<span>${sum7}</span>`;
+  document.getElementById('card-30d').innerHTML = `30-Day Growth<span>${sum30}</span>`;
+  document.getElementById('card-maxday').innerHTML = `Max Daily Growth<span>${maxGrowth} (${maxDate})</span>`;
+  document.getElementById('card-growthrate').innerHTML = `Avg 7-Day Rate<span>${avgRate7.toFixed(2)}%</span>`;
+}
+
+function drawChart(type = 'total') {
+  const [filteredLabels, filteredCounts] = applyRange();
+  labels = filteredLabels;
+  totalData = filteredCounts;
+  dailyData = [0];
+  rateData = [0];
+
+  for (let i = 1; i < totalData.length; i++) {
+    const diff = totalData[i] - totalData[i - 1];
+    dailyData.push(diff);
+    rateData.push(parseFloat(((diff / totalData[i - 1]) * 100).toFixed(2)));
+  }
+
+  updateStats();
+
+  const dataSet = type === 'total' ? totalData : (type === 'daily' ? dailyData : rateData);
+  const label = type === 'total' ? 'Total Followers' : (type === 'daily' ? 'Daily Growth' : 'Growth Rate (%)');
+
+  if (chart) chart.destroy();
+
+  chart = new Chart(document.getElementById('fansChart'), {
+    type: 'line',
+    data: {
+      labels: labels,
+      datasets: [{
+        label: label,
+        data: dataSet,
+        borderColor: chartColor,
+        backgroundColor: fillColor,
+        fill: true,
+        pointRadius: function(ctx) {
+          const index = ctx.dataIndex;
+          if (type === 'daily' && dailyData[index] === Math.max(...dailyData)) {
+            return 5;
+          }
+          return 0;
+        },
+        pointBackgroundColor: function(ctx) {
+          const index = ctx.dataIndex;
+          if (type === 'daily' && dailyData[index] === Math.max(...dailyData)) {
+            return 'rgb(207, 10, 36)';
+          }
+          return chartColor;
+        },
+        pointHoverRadius: function(ctx) {
+          const index = ctx.dataIndex;
+          if (type === 'daily' && dailyData[index] === Math.max(...dailyData)) {
+            return 10;
+          }
+          return 3;
+        },
+        tension: 0.3,
+        borderWidth: 2
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        zoom: {
+          zoom: {
+            wheel: { enabled: true },
+            drag: { enabled: true },
+            mode: 'x'
+          },
+          pan: {
+            enabled: true,
+            mode: 'x'
+          },
+          limits: {
+            x: { min: 0, max: labels.length - 1 }
+          }
+        }
+      },
+      scales: {
+        x: { ticks: { maxTicksLimit: 10 } },
+        y: {
+          beginAtZero: (type === 'rate'),
+          suggestedMin: (type === 'rate') ? 0 : Math.floor(Math.min(...dataSet) * 0.95),
+          suggestedMax: Math.ceil(Math.max(...dataSet) * 1.05)
+        }
+      },
+      onClick: function(evt) {
+        if (evt.native?.dblclick) {
+          chart.resetZoom();
+        }
+      }
+    },
+    plugins: [Chart.Zoom]
+  });
+}
+
+function switchChart(viewType) {
+  drawChart(viewType);
+}
+
+function setRange(r) {
+  range = r;
+  drawChart();
+}
+
+window.addEventListener('DOMContentLoaded', fetchData);
+</script>
+<!-- ========================================================================================================================================== -->
 <style>
 /* 只影响正文内容区的超链接 */
 .page__content p a,
@@ -267,4 +496,4 @@ I enjoy taking notes when I learn new things and I put them on Github. Here is t
   background-color: rgba(125,181,168, 0.12);
 }
 </style>
-
+<!-- ========================================================================================================================================== -->
