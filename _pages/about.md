@@ -60,57 +60,125 @@ I enjoy taking notes when I learn new things and I put them on Github. Here is t
 - [Optimization for data analysis](https://github.com/0917Ray/Reading_Notes/tree/main/Optimization%20for%20Data%20Analysis), by [STEPHEN J. WRIGHT](https://wrightstephen.github.io/sw_proj/) and [BENJAMIN RECHT](https://people.eecs.berkeley.edu/~brecht/index.html)
 
 # 📕 Xiaohongshu(Rednote) Followers Tracker
-<div style="max-width: 700px; margin: 0 auto; padding: 24px; background: white; border-radius: 18px; box-shadow: 0 8px 30px rgba(0,0,0,0.05); font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
-  <h2 style="font-size: 1.5rem; font-weight: 600; margin-bottom: 10px;">Current Xiaohongshu Followers: 
-    <span id="current-fans" style="color: #007aff;">Loading...</span>
-  </h2>
-  <canvas id="fansChart" style="width: 100%; height: 300px;"></canvas>
-  <p style="font-size: 0.85rem; color: #888; margin-top: 12px;">* Data manually updated daily from <strong>Google Sheet: xiahongshu_fans</strong></p>
+<div id="fans-wrapper" style="max-width: 750px; margin: 0 auto; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
+  <!-- 卡片统计区 -->
+  <div style="display: flex; gap: 12px; flex-wrap: wrap; justify-content: space-between; margin-bottom: 16px;">
+    <div class="fans-card" id="card-total"></div>
+    <div class="fans-card" id="card-today"></div>
+    <div class="fans-card" id="card-7d"></div>
+    <div class="fans-card" id="card-30d"></div>
+  </div>
+
+  <!-- 切换按钮 -->
+  <div style="margin-bottom: 10px;">
+    <button onclick="switchChart('total')" style="padding: 6px 12px; margin-right: 10px;">Total Followers</button>
+    <button onclick="switchChart('daily')" style="padding: 6px 12px;">Daily Growth</button>
+  </div>
+
+  <!-- 图表画布 -->
+  <canvas id="fansChart" style="width: 100%; height: 320px;"></canvas>
 </div>
+
+<style>
+  .fans-card {
+    flex: 1;
+    min-width: 160px;
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.05);
+    padding: 14px 18px;
+    color: #333;
+    font-size: 0.9rem;
+  }
+  .fans-card span {
+    display: block;
+    font-weight: bold;
+    font-size: 1.5rem;
+    margin-top: 6px;
+    color: rgb(125,181,168);
+  }
+  button {
+    border: none;
+    background: rgb(125,181,168);
+    color: white;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.9rem;
+  }
+  button:hover {
+    background: rgb(105,161,148);
+  }
+</style>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-  async function loadCSVData() {
-    const response = await fetch('https://docs.google.com/spreadsheets/d/e/2PACX-1vQUX3jbmcxIjz_VyFAy33PJzbYPVKPVXIEOSMdoy7bqRPOl-y1n-lZe8pkZ55WYwkQaqGEAQ0D_idrc/pub?output=csv');
-    const csvText = await response.text();
+  const SHEET_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQUX3jbmcxIjz_VyFAy33PJzbYPVKPVXIEOSMdoy7bqRPOl-y1n-lZe8pkZ55WYwkQaqGEAQ0D_idrc/pub?output=csv';
+  const chartColor = 'rgba(125,181,168,1)';
+  const fillColor = 'rgba(125,181,168,0.95)';
+  let chart, totalData = [], dailyData = [], labels = [];
 
-    const lines = csvText.trim().split(/\r?\n/);
-    const headers = lines[0].replace(/^\uFEFF/, '').split(',');
-    const dateIndex = headers.findIndex(h => h.trim().toLowerCase() === 'date');
-    const countIndex = headers.findIndex(h => h.trim().toLowerCase() === 'count');
+  async function fetchData() {
+    const res = await fetch(SHEET_CSV_URL);
+    const text = await res.text();
+    const rows = text.trim().split(/\r?\n/).map(line => line.split(','));
+    const head = rows[0];
+    const dateIdx = head.findIndex(h => h.trim().toLowerCase() === 'date');
+    const countIdx = head.findIndex(h => h.trim().toLowerCase() === 'count');
+    const dates = [], counts = [];
 
-    const labels = [], data = [];
-
-    for (let i = 1; i < lines.length; i++) {
-      const parts = lines[i].split(',');
-      const date = parts[dateIndex]?.trim();
-      const count = parseInt(parts[countIndex]?.trim(), 10);
-      if (!isNaN(count) && date) {
-        labels.push(date);
-        data.push(count);
+    for (let i = 1; i < rows.length; i++) {
+      const date = rows[i][dateIdx]?.trim();
+      const count = parseInt(rows[i][countIdx]?.trim(), 10);
+      if (date && !isNaN(count)) {
+        dates.push(date);
+        counts.push(count);
       }
     }
 
-    if (data.length === 0) {
-      document.getElementById('current-fans').innerText = 'No data';
-      return;
+    labels = dates;
+    totalData = counts;
+    dailyData = [0];
+    for (let i = 1; i < counts.length; i++) {
+      dailyData.push(counts[i] - counts[i - 1]);
     }
 
-    document.getElementById('current-fans').innerText = data.at(-1);
+    updateStats();
+    drawChart('total');
+  }
 
-    new Chart(document.getElementById('fansChart'), {
+  function updateStats() {
+    const latest = totalData.at(-1);
+    const yesterday = totalData.at(-2);
+    const last7 = totalData.slice(-7);
+    const last30 = totalData.slice(-30);
+    const sum7 = last7[last7.length - 1] - last7[0];
+    const sum30 = last30[last30.length - 1] - last30[0];
+
+    document.getElementById('card-total').innerHTML = `Total Followers<span>${latest}</span>`;
+    document.getElementById('card-today').innerHTML = `Today Growth<span>${latest - yesterday}</span>`;
+    document.getElementById('card-7d').innerHTML = `7-Day Growth<span>${sum7}</span>`;
+    document.getElementById('card-30d').innerHTML = `30-Day Growth<span>${sum30}</span>`;
+  }
+
+  function drawChart(type = 'total') {
+    const dataSet = type === 'total' ? totalData : dailyData;
+    const label = type === 'total' ? 'Total Followers' : 'Daily Growth';
+
+    if (chart) chart.destroy();
+
+    chart = new Chart(document.getElementById('fansChart'), {
       type: 'line',
       data: {
         labels: labels,
         datasets: [{
-          label: 'Follower Count',
-          data: data,
-          borderWidth: 2,
+          label: label,
+          data: dataSet,
+          borderColor: chartColor,
+          backgroundColor: fillColor,
           fill: true,
           pointRadius: 0,
           tension: 0.3,
-          backgroundColor: 'rgba(0, 122, 255, 0.1)',
-          borderColor: 'rgba(0, 122, 255, 1)'
+          borderWidth: 2
         }]
       },
       options: {
@@ -119,25 +187,17 @@ I enjoy taking notes when I learn new things and I put them on Github. Here is t
           legend: { display: false }
         },
         scales: {
-          x: {
-            title: { display: false },
-            ticks: {
-              color: '#666',
-              font: { size: 11 }
-            }
-          },
-          y: {
-            title: { display: false },
-            ticks: {
-              color: '#666',
-              font: { size: 11 }
-            },
-            beginAtZero: false
-          }
+          x: { ticks: { maxTicksLimit: 10 }, title: { display: false } },
+          y: { beginAtZero: false, title: { display: false } }
         }
       }
     });
   }
 
-  window.addEventListener('DOMContentLoaded', loadCSVData);
+  function switchChart(viewType) {
+    drawChart(viewType);
+  }
+
+  window.addEventListener('DOMContentLoaded', fetchData);
 </script>
+
