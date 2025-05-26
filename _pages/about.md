@@ -60,34 +60,30 @@ I enjoy taking notes when I learn new things and I put them on Github. Here is t
 - [Optimization for data analysis](https://github.com/0917Ray/Reading_Notes/tree/main/Optimization%20for%20Data%20Analysis), by [STEPHEN J. WRIGHT](https://wrightstephen.github.io/sw_proj/) and [BENJAMIN RECHT](https://people.eecs.berkeley.edu/~brecht/index.html)
 
 # 📕 Xiaohongshu(Rednote) Followers Tracker
-
 <h2>Current Xiaohongshu Followers: <span id="current-fans">Loading...</span></h2>
 <canvas id="fansChart" width="100%" height="300"></canvas>
 <p style="font-size: 0.9em; color: gray;">* Data manually updated daily from <strong>Google Sheet: xiahongshu_fans</strong></p>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/tabletop@1.5.1/tabletop.min.js"></script>
 <script>
-  const publicSpreadsheetUrl = 'https://docs.google.com/spreadsheets/d/1P5sppWlUhhD1onEAYQmUq8JLbKuY3in5PZh-xblOApw/pubhtml';
+  async function loadCSVData() {
+    const response = await fetch('https://docs.google.com/spreadsheets/d/e/2PACX-1vQUX3jbmcxIjz_VyFAy33PJzbYPVKPVXIEOSMdoy7bqRPOl-y1n-lZe8pkZ55WYwkQaqGEAQ0D_idrc/pub?output=csv');
+    const csvText = await response.text();
 
-  function init() {
-    Tabletop.init({
-      key: publicSpreadsheetUrl,
-      simpleSheet: true,
-      callback: showInfo
-    });
-  }
+    const lines = csvText.trim().split('\n');
+    const headers = lines[0].split(',');
+    const dateIndex = headers.indexOf('date');
+    const countIndex = headers.indexOf('count');
 
-  function showInfo(data) {
-    const labels = [];
-    const counts = [];
+    const labels = [], data = [];
 
-    data.forEach(row => {
-      labels.push(row['date']);
-      counts.push(Number(row['count']));
-    });
+    for (let i = 1; i < lines.length; i++) {
+      const parts = lines[i].split(',');
+      labels.push(parts[dateIndex]);
+      data.push(Number(parts[countIndex]));
+    }
 
-    document.getElementById('current-fans').innerText = counts.at(-1);
+    document.getElementById('current-fans').innerText = data[data.length - 1];
 
     new Chart(document.getElementById('fansChart'), {
       type: 'line',
@@ -95,11 +91,11 @@ I enjoy taking notes when I learn new things and I put them on Github. Here is t
         labels: labels,
         datasets: [{
           label: 'Follower Count',
-          data: counts,
+          data: data,
           borderWidth: 2,
           fill: true,
           pointRadius: 0,
-          tension: 0.25
+          tension: 0.3
         }]
       },
       options: {
@@ -110,9 +106,7 @@ I enjoy taking notes when I learn new things and I put them on Github. Here is t
         scales: {
           x: {
             title: { display: true, text: 'Date' },
-            ticks: {
-              maxTicksLimit: 10
-            }
+            ticks: { maxTicksLimit: 10 }
           },
           y: {
             title: { display: true, text: 'Followers' },
@@ -123,6 +117,5 @@ I enjoy taking notes when I learn new things and I put them on Github. Here is t
     });
   }
 
-  window.addEventListener('DOMContentLoaded', init);
+  window.addEventListener('DOMContentLoaded', loadCSVData);
 </script>
-
