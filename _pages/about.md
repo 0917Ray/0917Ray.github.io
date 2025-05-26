@@ -70,21 +70,38 @@ I enjoy taking notes when I learn new things and I put them on Github. Here is t
     const response = await fetch('https://docs.google.com/spreadsheets/d/e/2PACX-1vQUX3jbmcxIjz_VyFAy33PJzbYPVKPVXIEOSMdoy7bqRPOl-y1n-lZe8pkZ55WYwkQaqGEAQ0D_idrc/pub?output=csv');
     const csvText = await response.text();
 
-    const lines = csvText.trim().split('\n');
-    const headers = lines[0].split(',');
-    const dateIndex = headers.indexOf('date');
-    const countIndex = headers.indexOf('count');
+    // Handle BOM and line breaks
+    const lines = csvText.trim().split(/\r?\n/);
+    const headers = lines[0].replace(/^\uFEFF/, '').split(',');
+    const dateIndex = headers.findIndex(h => h.trim().toLowerCase() === 'date');
+    const countIndex = headers.findIndex(h => h.trim().toLowerCase() === 'count');
+
+    if (dateIndex === -1 || countIndex === -1) {
+      console.error('CSV headers "date" or "count" not found.');
+      return;
+    }
 
     const labels = [], data = [];
 
     for (let i = 1; i < lines.length; i++) {
       const parts = lines[i].split(',');
-      labels.push(parts[dateIndex]);
-      data.push(Number(parts[countIndex]));
+      const date = parts[dateIndex]?.trim();
+      const count = parseInt(parts[countIndex]?.trim(), 10);
+      if (!isNaN(count) && date) {
+        labels.push(date);
+        data.push(count);
+      }
     }
 
-    document.getElementById('current-fans').innerText = data[data.length - 1];
+    if (data.length === 0) {
+      document.getElementById('current-fans').innerText = 'No data';
+      return;
+    }
 
+    // Update current follower count
+    document.getElementById('current-fans').innerText = data.at(-1);
+
+    // Draw chart
     new Chart(document.getElementById('fansChart'), {
       type: 'line',
       data: {
@@ -94,8 +111,10 @@ I enjoy taking notes when I learn new things and I put them on Github. Here is t
           data: data,
           borderWidth: 2,
           fill: true,
-          pointRadius: 0,
-          tension: 0.3
+          backgroundColor: 'rgba(54, 162, 235, 0.1)',
+          borderColor: 'rgba(54, 162, 235, 1)',
+          tension: 0.3,
+          pointRadius: 0
         }]
       },
       options: {
@@ -106,7 +125,7 @@ I enjoy taking notes when I learn new things and I put them on Github. Here is t
         scales: {
           x: {
             title: { display: true, text: 'Date' },
-            ticks: { maxTicksLimit: 10 }
+            ticks: { maxTicksLimit: 12 }
           },
           y: {
             title: { display: true, text: 'Followers' },
@@ -119,3 +138,4 @@ I enjoy taking notes when I learn new things and I put them on Github. Here is t
 
   window.addEventListener('DOMContentLoaded', loadCSVData);
 </script>
+
