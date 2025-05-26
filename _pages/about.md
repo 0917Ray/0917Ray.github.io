@@ -208,6 +208,13 @@ I enjoy taking notes when I learn new things and I put them on Github. Here is t
             }
             return chartColor;
           },
+          pointHoverRadius: function(ctx) {
+            const index = ctx.dataIndex;
+            if (type === 'daily' && dailyData[index] === Math.max(...dailyData)) {
+              return 10;
+            }
+            return 3;
+          },
           tension: 0.3,
           borderWidth: 1.5
         }]
