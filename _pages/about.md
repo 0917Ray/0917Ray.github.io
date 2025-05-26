@@ -105,7 +105,7 @@ I enjoy taking notes when I learn new things and I put them on Github. Here is t
   }
   button {
     border: none;
-    background: rgb(125,181,168);
+    background: rgb(125,181,168,0.2);
     color: white;
     border-radius: 6px;
     padding: 6px 12px;
