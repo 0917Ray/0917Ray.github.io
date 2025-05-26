@@ -59,24 +59,30 @@ I enjoy taking notes when I learn new things and I put them on Github. Here is t
 - [Reinforcement Learning](https://github.com/0917Ray/Reading_Notes/tree/main/Reinfoce%20Learning), by [Shiyu Zhao](https://www.shiyuzhao.net/), Westlake University
 - [Optimization for data analysis](https://github.com/0917Ray/Reading_Notes/tree/main/Optimization%20for%20Data%20Analysis), by [STEPHEN J. WRIGHT](https://wrightstephen.github.io/sw_proj/) and [BENJAMIN RECHT](https://people.eecs.berkeley.edu/~brecht/index.html)
 
-# 📕 Xiaohongshu(Rednote) Followers Tracker
-<div id="fans-wrapper" style="max-width: 750px; margin: 0 auto; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
+# 📕 Xiaohongshu (Rednote) Followers Tracker
+
+<div id="fans-wrapper" style="max-width: 800px; margin: 0 auto; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
   <!-- 卡片统计区 -->
   <div style="display: flex; gap: 12px; flex-wrap: wrap; justify-content: space-between; margin-bottom: 16px;">
     <div class="fans-card" id="card-total"></div>
     <div class="fans-card" id="card-today"></div>
     <div class="fans-card" id="card-7d"></div>
     <div class="fans-card" id="card-30d"></div>
+    <div class="fans-card" id="card-maxday"></div>
+    <div class="fans-card" id="card-growthrate"></div>
   </div>
 
-  <!-- 切换按钮 -->
+  <!-- 图表切换按钮 -->
   <div style="margin-bottom: 10px;">
-    <button onclick="switchChart('total')" style="padding: 6px 12px; margin-right: 10px;">Total Followers</button>
-    <button onclick="switchChart('daily')" style="padding: 6px 12px;">Daily Growth</button>
+    <button onclick="switchChart('total')">Total Followers</button>
+    <button onclick="switchChart('daily')">Daily Growth</button>
+    <button onclick="switchChart('rate')">Growth Rate (%)</button>
   </div>
 
-  <!-- 图表画布 -->
-  <canvas id="fansChart" style="width: 100%; height: 180px;"></canvas>
+  <!-- 图表容器 -->
+  <div style="height: 240px;">
+    <canvas id="fansChart" style="width: 100%;"></canvas>
+  </div>
 </div>
 
 <style>
@@ -102,6 +108,8 @@ I enjoy taking notes when I learn new things and I put them on Github. Here is t
     background: rgb(125,181,168);
     color: white;
     border-radius: 6px;
+    padding: 6px 12px;
+    margin-right: 10px;
     cursor: pointer;
     font-size: 0.9rem;
   }
@@ -114,8 +122,8 @@ I enjoy taking notes when I learn new things and I put them on Github. Here is t
 <script>
   const SHEET_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQUX3jbmcxIjz_VyFAy33PJzbYPVKPVXIEOSMdoy7bqRPOl-y1n-lZe8pkZ55WYwkQaqGEAQ0D_idrc/pub?output=csv';
   const chartColor = 'rgba(125,181,168,1)';
-  const fillColor = 'rgba(125,181,168,0.05)';
-  let chart, totalData = [], dailyData = [], labels = [];
+  const fillColor = 'rgba(125,181,168,0.25)';
+  let chart, totalData = [], dailyData = [], rateData = [], labels = [];
 
   async function fetchData() {
     const res = await fetch(SHEET_CSV_URL);
@@ -138,8 +146,11 @@ I enjoy taking notes when I learn new things and I put them on Github. Here is t
     labels = dates;
     totalData = counts;
     dailyData = [0];
+    rateData = [0];
     for (let i = 1; i < counts.length; i++) {
-      dailyData.push(counts[i] - counts[i - 1]);
+      const diff = counts[i] - counts[i - 1];
+      dailyData.push(diff);
+      rateData.push(parseFloat(((diff / counts[i - 1]) * 100).toFixed(2)));
     }
 
     updateStats();
@@ -151,18 +162,25 @@ I enjoy taking notes when I learn new things and I put them on Github. Here is t
     const yesterday = totalData.at(-2);
     const last7 = totalData.slice(-7);
     const last30 = totalData.slice(-30);
-    const sum7 = last7[last7.length - 1] - last7[0];
-    const sum30 = last30[last30.length - 1] - last30[0];
+    const sum7 = last7.at(-1) - last7[0];
+    const sum30 = last30.at(-1) - last30[0];
+    const avgRate7 = rateData.slice(-7).reduce((a, b) => a + b, 0) / 7;
+
+    const maxGrowth = Math.max(...dailyData);
+    const maxIndex = dailyData.findIndex(x => x === maxGrowth);
+    const maxDate = labels[maxIndex];
 
     document.getElementById('card-total').innerHTML = `Total Followers<span>${latest}</span>`;
-    document.getElementById('card-today').innerHTML = `Today Growth<span>${latest - yesterday}</span>`;
+    document.getElementById('card-today').innerHTML = `Today's Growth<span>${latest - yesterday}</span>`;
     document.getElementById('card-7d').innerHTML = `7-Day Growth<span>${sum7}</span>`;
     document.getElementById('card-30d').innerHTML = `30-Day Growth<span>${sum30}</span>`;
+    document.getElementById('card-maxday').innerHTML = `Max Daily Growth<span>${maxGrowth} (${maxDate})</span>`;
+    document.getElementById('card-growthrate').innerHTML = `Avg 7-Day Rate<span>${avgRate7.toFixed(2)}%</span>`;
   }
 
   function drawChart(type = 'total') {
-    const dataSet = type === 'total' ? totalData : dailyData;
-    const label = type === 'total' ? 'Total Followers' : 'Daily Growth';
+    const dataSet = type === 'total' ? totalData : (type === 'daily' ? dailyData : rateData);
+    const label = type === 'total' ? 'Total Followers' : (type === 'daily' ? 'Daily Growth' : 'Growth Rate (%)');
 
     if (chart) chart.destroy();
 
@@ -176,19 +194,37 @@ I enjoy taking notes when I learn new things and I put them on Github. Here is t
           borderColor: chartColor,
           backgroundColor: fillColor,
           fill: true,
-          pointRadius: 0,
+          pointRadius: function(ctx) {
+            const index = ctx.dataIndex;
+            if (type === 'daily' && dailyData[index] === Math.max(...dailyData)) {
+              return 5;
+            }
+            return 0;
+          },
+          pointBackgroundColor: function(ctx) {
+            const index = ctx.dataIndex;
+            if (type === 'daily' && dailyData[index] === Math.max(...dailyData)) {
+              return 'red';
+            }
+            return chartColor;
+          },
           tension: 0.3,
           borderWidth: 2
         }]
       },
       options: {
         responsive: true,
+        maintainAspectRatio: false,
         plugins: {
           legend: { display: false }
         },
         scales: {
-          x: { ticks: { maxTicksLimit: 10 }, title: { display: false } },
-          y: { beginAtZero: false, title: { display: false } }
+          x: { ticks: { maxTicksLimit: 10 } },
+          y: {
+            beginAtZero: false,
+            suggestedMin: Math.floor(Math.min(...dataSet) * 0.95),
+            suggestedMax: Math.ceil(Math.max(...dataSet) * 1.05)
+          }
         }
       }
     });
@@ -200,6 +236,7 @@ I enjoy taking notes when I learn new things and I put them on Github. Here is t
 
   window.addEventListener('DOMContentLoaded', fetchData);
 </script>
+
 
 
 <style>
