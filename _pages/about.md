@@ -203,8 +203,11 @@ I enjoy taking notes when I learn new things and I put them on Github. Here is t
 
 
 <style>
-/* 针对正文中的超链接 */
-p a, li a {
+/* 只影响正文内容区的超链接 */
+.page__content p a,
+.page__content li a,
+.post-content p a,
+.post-content li a {
   color: rgb(125,181,168);
   background-color: rgba(125,181,168, 0.09);
   padding: 2px 4px;
@@ -213,9 +216,12 @@ p a, li a {
   transition: all 0.2s ease;
 }
 
-p a:hover, li a:hover {
+.page__content p a:hover,
+.page__content li a:hover,
+.post-content p a:hover,
+.post-content li a:hover {
   color: rgb(105,161,148);
-  background-color: rgba(125,181,168, 0.15);
+  background-color: rgba(125,181,168, 0.12);
 }
 </style>
 
