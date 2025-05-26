@@ -59,7 +59,7 @@ I enjoy taking notes when I learn new things and I put them on Github. Here is t
 - [Reinforcement Learning](https://github.com/0917Ray/Reading_Notes/tree/main/Reinfoce%20Learning), by [Shiyu Zhao](https://www.shiyuzhao.net/), Westlake University
 - [Optimization for data analysis](https://github.com/0917Ray/Reading_Notes/tree/main/Optimization%20for%20Data%20Analysis), by [STEPHEN J. WRIGHT](https://wrightstephen.github.io/sw_proj/) and [BENJAMIN RECHT](https://people.eecs.berkeley.edu/~brecht/index.html)
 
-# 📕 Rednote Followers Tracker
+# 📕 Rednote Followers
 <div id="fans-wrapper" style="max-width: 800px; margin: 0 auto; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
   <!-- 卡片统计区 -->
   <div style="display: flex; gap: 12px; flex-wrap: wrap; justify-content: space-between; margin-bottom: 16px;">
