@@ -105,7 +105,7 @@ I enjoy taking notes when I learn new things and I put them on Github. Here is t
   }
   button {
     border: none;
-    background: rgb(125,181,168,0.2);
+    background: rgb(125,181,168,0.5);
     color: white;
     border-radius: 6px;
     padding: 6px 12px;
@@ -121,7 +121,7 @@ I enjoy taking notes when I learn new things and I put them on Github. Here is t
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
   const SHEET_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQUX3jbmcxIjz_VyFAy33PJzbYPVKPVXIEOSMdoy7bqRPOl-y1n-lZe8pkZ55WYwkQaqGEAQ0D_idrc/pub?output=csv';
-  const chartColor = 'rgba(125,181,168,1)';
+  const chartColor = 'rgba(125,181,168,0.95)';
   const fillColor = 'rgba(125,181,168,0.25)';
   let chart, totalData = [], dailyData = [], rateData = [], labels = [];
 
@@ -204,7 +204,7 @@ I enjoy taking notes when I learn new things and I put them on Github. Here is t
           pointBackgroundColor: function(ctx) {
             const index = ctx.dataIndex;
             if (type === 'daily' && dailyData[index] === Math.max(...dailyData)) {
-              return 'red';
+              return 'rgb(207, 10, 36)'; // 胭脂红色
             }
             return chartColor;
           },
@@ -221,8 +221,8 @@ I enjoy taking notes when I learn new things and I put them on Github. Here is t
         scales: {
           x: { ticks: { maxTicksLimit: 10 } },
           y: {
-            beginAtZero: false,
-            suggestedMin: Math.floor(Math.min(...dataSet) * 0.95),
+            beginAtZero: (type === 'rate'),  // 只有 growth rate 视图从 0 开始
+            suggestedMin: (type === 'rate') ? 0 : Math.floor(Math.min(...dataSet) * 0.95),
             suggestedMax: Math.ceil(Math.max(...dataSet) * 1.05)
           }
         }
