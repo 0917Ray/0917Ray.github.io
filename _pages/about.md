@@ -54,9 +54,25 @@ Here are my CV(Curriculum Vitae)
 - Running 🏃🏻‍➡️
 <!-- ========================================================================================================================================== -->
 # 📝 Reading Notes
-I enjoy taking notes when I learn new things and I put them on Github.
+I enjoy taking notes when I learn new things and I put them on Github, now it has <div style="max-width: 320px; margin: 20px auto; padding: 16px 20px; border-radius: 12px; background: rgba(125,181,168,0.08); box-shadow: 0 2px 8px rgba(0,0,0,0.04); font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; text-align: center;">
+  <div style="font-size: 1.1rem; font-weight: bold; margin-bottom: 4px;">📚 Reading Notes</div>
+  <a href="https://github.com/0917Ray/Reading_Notes" target="_blank" style="text-decoration: none; color: rgb(125,181,168); font-size: 1.6rem; font-weight: bold;">
+    <span id="stars-count">...</span> stars ⭐!
+  </a>
+</div>
 
-Current stars for my Reading Notes repository: <span id="github-stars">Loading...</span>
+<script>
+  // 自动获取 GitHub Star 数
+  fetch('https://api.github.com/repos/0917Ray/Reading_Notes')
+    .then(res => res.json())
+    .then(data => {
+      document.getElementById('stars-count').textContent = data.stargazers_count;
+    })
+    .catch(err => {
+      console.error('GitHub Stars Fetch Error:', err);
+      document.getElementById('stars-count').textContent = 'N/A';
+    });
+</script>
 
 Here is the list:
 - [Machine Learning](https://github.com/0917Ray/Reading_Notes/tree/main/CS229), [CS229](https://cs229.stanford.edu/), Stanford
