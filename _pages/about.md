@@ -54,11 +54,10 @@ Here are my CV(Curriculum Vitae)
 - Running 🏃🏻‍➡️
 <!-- ========================================================================================================================================== -->
 # 📝 Reading Notes
-I enjoy taking notes when I learn new things and I put them on Github, now the repository has <div style="display: inline-block; padding: 6px 12px; background: rgba(125,181,168,0.08); border-radius: 8px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; font-size: 1rem; box-shadow: 0 1px 4px rgba(0,0,0,0.05);">
-  ⭐ <a href="https://github.com/0917Ray/Reading_Notes" target="_blank" style="color: rgb(125,181,168); text-decoration: none; font-weight: bold;">
-    <span id="stars-count">...</span> stars
-  </a>
-</div>
+<p style="margin: 10px 0;">
+  I enjoy taking notes when I learn new things and I put them on GitHub. Now it has 
+  <span id="stars-count" style="color: rgb(125,181,168); font-weight: bold;">...</span> ⭐!
+</p>
 
 <script>
   fetch('https://api.github.com/repos/0917Ray/Reading_Notes')
