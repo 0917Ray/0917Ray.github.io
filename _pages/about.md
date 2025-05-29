@@ -53,24 +53,8 @@ Here are my CV(Curriculum Vitae)
 - Photography 📸
 - Running 🏃🏻‍➡️
 <!-- ========================================================================================================================================== -->
-# 📝 Reading Notes
-<p style="margin: 10px 0;">
-  I enjoy taking notes when I learn new things and I put them on GitHub. Now it has 
-  <span id="stars-count" style="color: rgb(125,181,168); font-weight: bold;">...</span> ⭐!
-</p>
-
-<script>
-  fetch('https://api.github.com/repos/0917Ray/Reading_Notes')
-    .then(res => res.json())
-    .then(data => {
-      document.getElementById('stars-count').textContent = data.stargazers_count;
-    })
-    .catch(() => {
-      document.getElementById('stars-count').textContent = 'N/A';
-    });
-</script>
-
-Here is the list:
+# 📝 Reading Notes ![GitHub stars](https://img.shields.io/github/stars/0917Ray/Reading_Notes?style=flat-square&color=7db5a8)
+I enjoy taking notes when I learn new things and I put them on GitHub. Here is the list:
 - [Machine Learning](https://github.com/0917Ray/Reading_Notes/tree/main/CS229), [CS229](https://cs229.stanford.edu/), Stanford
 - [Reinforcement Learning](https://github.com/0917Ray/Reading_Notes/tree/main/Reinfoce%20Learning), by [Shiyu Zhao](https://www.shiyuzhao.net/), Westlake University
 - [Optimization for data analysis](https://github.com/0917Ray/Reading_Notes/tree/main/Optimization%20for%20Data%20Analysis), by [STEPHEN J. WRIGHT](https://wrightstephen.github.io/sw_proj/) and [BENJAMIN RECHT](https://people.eecs.berkeley.edu/~brecht/index.html)
