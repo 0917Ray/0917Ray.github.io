@@ -63,7 +63,7 @@ I enjoy taking notes when I learn new things and I put them on GitHub. Here is t
   <!-- 卡片统计区 -->
   <div style="display: flex; gap: 12px; flex-wrap: wrap; justify-content: space-between; margin-bottom: 16px;">
     <div class="fans-card" id="card-total"></div>
-    <div class="fans-card" id="card-today"></div>
+    <div class="fans-card" id="card-yesterday"></div>
     <div class="fans-card" id="card-7d"></div>
     <div class="fans-card" id="card-30d"></div>
     <div class="fans-card" id="card-maxday"></div>
@@ -169,7 +169,7 @@ I enjoy taking notes when I learn new things and I put them on GitHub. Here is t
     const maxDate = labels[maxIndex];
 
     document.getElementById('card-total').innerHTML = `Total Followers<span>${latest}</span>`;
-    document.getElementById('card-today').innerHTML = `Today's Growth<span>${latest - yesterday}</span>`;
+    document.getElementById('card-yesterday').innerHTML = `Yesterday's Growth<span>${latest - yesterday}</span>`;
     document.getElementById('card-7d').innerHTML = `7-Day Growth<span>${sum7}</span>`;
     document.getElementById('card-30d').innerHTML = `30-Day Growth<span>${sum30}</span>`;
     document.getElementById('card-maxday').innerHTML = `Max Daily Growth<span>${maxGrowth} (${maxDate})</span>`;
