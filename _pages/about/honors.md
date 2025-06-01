@@ -17,13 +17,15 @@
 
 - *2023.12* ‧ National Encouragement Scholarship.
 
+- *2023.12* ‧ Excellent Student Scholarship, Wuhan University    
+  <span class="note">Awarded based on GPA and overall performance.</span>
+
 - *2023.11* ‧ National Second Prize, China Undergraduate Mathematical Contest in Modeling (CUMCM)    
   <span class="note">Top 2% of 180,000 participants.</span>
   <span class="note">Team members: LIAO Yang, ZHOU Ding-bo.</span>
 
 
-- *2022.12* ‧ *Excellent Student Scholarship*, Wuhan University    
-  <span class="note">Awarded based on GPA and overall performance.</span>
+
 
 - *2021.09* ‧ Freshman Scholarship    
-  <span class="note">Top 10% of freshman from Anhui province.</span>
+  <span class="note">The top 10% of Anhui students of Wuhan University Class of 2021</span>
