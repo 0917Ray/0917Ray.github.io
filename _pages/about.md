@@ -22,6 +22,7 @@ redirect_from:
 {% include_relative about/educations.md %}
 {% include_relative about/hobbies.md %}
 {% include_relative about/reading-notes.md %}
+{% include_relative about/rednote-followers.md %}
 <!-- ========================================================================================================================================== -->
 <!-- <span class='anchor' id='about-me'></span>
 <!-- ========================================================================================================================================== -->
