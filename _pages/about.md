@@ -17,9 +17,9 @@ redirect_from:
 <!-- ========================================================================================================================================== -->
 {% include about-me.html %}
 <!-- ========================================================================================================================================== -->
-<span class='anchor' id='about-me'></span>
+<!-- <span class='anchor' id='about-me'></span>
 <!-- ========================================================================================================================================== -->
-<!--  Now I am an undergraduate student at Wuhan University, majoring in Information and Computational Science(also called Computational Mathematics). During my undergraduate studies, I was fortunate to receive guidance from Prof. [ZHANG Jiwei(张继伟)](https://scholar.google.com.hk/citations?user=8yZhQ7kAAAAJ&hl=en&oi=ao) and Prof. HU Jie(胡捷).
+<!-- Now I am an undergraduate student at Wuhan University, majoring in Information and Computational Science(also called Computational Mathematics). During my undergraduate studies, I was fortunate to receive guidance from Prof. [ZHANG Jiwei(张继伟)](https://scholar.google.com.hk/citations?user=8yZhQ7kAAAAJ&hl=en&oi=ao) and Prof. HU Jie(胡捷).
 
 I will begin my doctoral studies in Fall 2025, at [CS department](https://www.cs.cityu.edu.hk/) of City University of Hong Kong, where I will supervised by Prof. [MA Ziye(马梓业)](https://gavenma.github.io/).
 
