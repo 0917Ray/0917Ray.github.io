@@ -38,12 +38,15 @@ Here are my CV(Curriculum Vitae): [CV in English](https://drive.google.com/file/
 # 📚️ Publications
 - No one here
 <!-- ========================================================================================================================================== -->
+{% include_relative about/honors.md %}
+<!-- 
 <span class="anchor" id="honors-and-awards"></span>
 # 🏆️ Honors and Awards
 - *2025.04* Outstanding undergraduate graduates of the School of Mathematics and Statistics, Class of 2025
 - *2023.12* National Encouragement Scholarship.
 - *2023.11* National Second Prize (Top 2% of 180,000) (China Undergraduate Mathematical Contest in Modeling(CUMCM)).
 - *2021.09* Freshman Scholarship(Undergraduate) (Top 10%).
+
 <!-- ========================================================================================================================================== -->
 <span class="anchor" id="educations"></span>
 # 📖 Educations
