@@ -188,7 +188,7 @@
               }
             }
           }
-        }
+        },
         scales: {
           x: { ticks: { maxTicksLimit: 10 } },
           y: {
