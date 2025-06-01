@@ -1,12 +1,15 @@
 <style>
 .note {
-  font-size: 0.9em;
-  font-style: italic;
-  color: #555;
+  margin-left: 1.2em;     /* 缩进 */
+  font-size: 0.9em;        /* 小一号字体 */
+  font-style: italic;      /* 斜体 */
+  color: #555;             /* 中性灰色 */
+  margin-top: 0.2em;       /* 与上方文字的间距 */
 }
 </style>
-
+<!-- ========================================================================================================================================== -->
 <span class="anchor" id="honors"></span>
+<!-- ========================================================================================================================================== -->
 # 🏅 Honors and Awards
 
 - *2025.04* ‧ Outstanding undergraduate graduates of the School of Mathematics and Statistics, Wuhan University
