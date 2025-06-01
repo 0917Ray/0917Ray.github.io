@@ -77,6 +77,13 @@ I enjoy taking notes when I learn new things and I put them on GitHub. Here is t
     <div class="fans-card" id="card-growthrate"></div>
   </div>
 
+  <!-- 时间范围按钮 -->
+  <div style="margin-bottom: 10px;">
+    <button onclick="setRange(7)">Last 7 Days</button>
+    <button onclick="setRange(30)">Last 30 Days</button>
+    <button onclick="setRange(null)">All</button>
+  </div>
+
   <!-- 图表切换按钮 -->
   <div style="margin-bottom: 10px;">
     <button onclick="switchChart('total')">Total Followers</button>
@@ -129,6 +136,8 @@ I enjoy taking notes when I learn new things and I put them on GitHub. Here is t
   const chartColor = 'rgba(125,181,168,0.95)';
   const fillColor = 'rgba(125,181,168,0.25)';
   let chart, totalData = [], dailyData = [], rateData = [], labels = [];
+  let chartType = 'total';
+  let rangeLimit = null;
 
   async function fetchData() {
     const res = await fetch(SHEET_CSV_URL);
@@ -159,7 +168,7 @@ I enjoy taking notes when I learn new things and I put them on GitHub. Here is t
     }
 
     updateStats();
-    drawChart('total');
+    drawChart(chartType);
   }
 
   function updateStats() {
@@ -184,15 +193,20 @@ I enjoy taking notes when I learn new things and I put them on GitHub. Here is t
   }
 
   function drawChart(type = 'total') {
-    const dataSet = type === 'total' ? totalData : (type === 'daily' ? dailyData : rateData);
+    chartType = type;
+    const fullDataSet = type === 'total' ? totalData : (type === 'daily' ? dailyData : rateData);
     const label = type === 'total' ? 'Total Followers' : (type === 'daily' ? 'Daily Growth' : 'Growth Rate (%)');
+    const fullLabels = labels;
+
+    const dataSet = rangeLimit ? fullDataSet.slice(-rangeLimit) : fullDataSet;
+    const shownLabels = rangeLimit ? fullLabels.slice(-rangeLimit) : fullLabels;
 
     if (chart) chart.destroy();
 
     chart = new Chart(document.getElementById('fansChart'), {
       type: 'line',
       data: {
-        labels: labels,
+        labels: shownLabels,
         datasets: [{
           label: label,
           data: dataSet,
@@ -201,25 +215,21 @@ I enjoy taking notes when I learn new things and I put them on GitHub. Here is t
           fill: true,
           pointRadius: function(ctx) {
             const index = ctx.dataIndex;
-            if (type === 'daily' && dailyData[index] === Math.max(...dailyData)) {
+            const fullIndex = fullDataSet.indexOf(dataSet[index]);
+            if (type === 'daily' && dailyData[fullIndex] === Math.max(...dailyData)) {
               return 3;
             }
             return 0;
           },
           pointBackgroundColor: function(ctx) {
             const index = ctx.dataIndex;
-            if (type === 'daily' && dailyData[index] === Math.max(...dailyData)) {
-              return 'rgb(207, 10, 36)'; // 胭脂红色
+            const fullIndex = fullDataSet.indexOf(dataSet[index]);
+            if (type === 'daily' && dailyData[fullIndex] === Math.max(...dailyData)) {
+              return 'rgb(207, 10, 36)';
             }
             return chartColor;
           },
-          pointHoverRadius: function(ctx) {
-            const index = ctx.dataIndex;
-            if (type === 'daily' && dailyData[index] === Math.max(...dailyData)) {
-              return 10;
-            }
-            return 3;
-          },
+          pointHoverRadius: 5,
           tension: 0.3,
           borderWidth: 1.5
         }]
@@ -233,7 +243,7 @@ I enjoy taking notes when I learn new things and I put them on GitHub. Here is t
         scales: {
           x: { ticks: { maxTicksLimit: 10 } },
           y: {
-            beginAtZero: (type === 'rate'),  // 只有 growth rate 视图从 0 开始
+            beginAtZero: (type === 'rate'),
             suggestedMin: (type === 'rate') ? 0 : Math.floor(Math.min(...dataSet) * 0.95),
             suggestedMax: Math.ceil(Math.max(...dataSet) * 1.05)
           }
@@ -243,7 +253,13 @@ I enjoy taking notes when I learn new things and I put them on GitHub. Here is t
   }
 
   function switchChart(viewType) {
+    chartType = viewType;
     drawChart(viewType);
+  }
+
+  function setRange(days) {
+    rangeLimit = days;
+    drawChart(chartType);
   }
 
   window.addEventListener('DOMContentLoaded', fetchData);
