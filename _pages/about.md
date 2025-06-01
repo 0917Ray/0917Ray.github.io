@@ -238,8 +238,22 @@ I enjoy taking notes when I learn new things and I put them on GitHub. Here is t
         responsive: true,
         maintainAspectRatio: false,
         plugins: {
-          legend: { display: false }
-        },
+          legend: { display: false },
+          tooltip: {
+            backgroundColor: 'rgba(0,0,0,0.8)',
+            titleFont: { size: 13 },
+            bodyFont: { size: 12 },
+            padding: 10,
+            callbacks: {
+              title: function (tooltipItems) {
+                return '📅 ' + tooltipItems[0].label;
+              },
+              label: function (tooltipItem) {
+                return '📈 ' + tooltipItem.dataset.label + ': ' + tooltipItem.formattedValue;
+              }
+            }
+          }
+        }
         scales: {
           x: { ticks: { maxTicksLimit: 10 } },
           y: {
