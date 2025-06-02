@@ -1,81 +1,37 @@
 <span class="anchor" id="rednote-followers"></span>
 # 📕 Rednote Followers
-<!-- 小红书粉丝统计可视化 -->
-<div id="fans-wrapper" style="max-width: 800px; margin: 0 auto; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
-<!-- 卡片统计区 -->
-<div style="display: flex; gap: 12px; flex-wrap: wrap; justify-content: space-between; margin-bottom: 16px;">
-  <div class="fans-card" id="card-total"></div>
-  <div class="fans-card" id="card-yesterday"></div>
-  <div class="fans-card" id="card-7d"></div>
-  <div class="fans-card" id="card-30d"></div>
-  <div class="fans-card" id="card-maxday"></div>
-  <div class="fans-card" id="card-growthrate"></div>
-</div>
 
-<!-- 时间范围按钮 -->
-<div style="margin-bottom: 10px;">
-  <button class="range-btn active" onclick="setRange(7, this)">Last 7 Days</button>
-  <button class="range-btn" onclick="setRange(30, this)">Last 30 Days</button>
+<div id="fans-wrapper" style="max-width: 800px; margin: 0 auto; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
+  <!-- 卡片统计区 -->
+  <div style="display: flex; gap: 12px; flex-wrap: wrap; justify-content: space-between; margin-bottom: 16px;">
+    <div class="fans-card" id="card-total"></div>
+    <div class="fans-card" id="card-yesterday"></div>
+    <div class="fans-card" id="card-7d"></div>
+    <div class="fans-card" id="card-30d"></div>
+    <div class="fans-card" id="card-maxday"></div>
+    <div class="fans-card" id="card-growthrate"></div>
+  </div>
+
+  <!-- 时间范围按钮 -->
+  <div style="margin-bottom: 10px;">
+    <button class="range-btn active" onclick="setRange(7, this)">Last 7 Days</button>
+    <button class="range-btn" onclick="setRange(30, this)">Last 30 Days</button>
+  </div>
+
+  <!-- 图表切换按钮 -->
+  <div style="margin-bottom: 10px;">
+    <button onclick="switchChart('total')">Total Followers</button>
+    <button onclick="switchChart('daily')">Daily Growth</button>
+    <button onclick="switchChart('rate')">Growth Rate (%)</button>
+  </div>
+
+  <!-- 图表容器 -->
+  <div style="height: 240px;">
+    <canvas id="fansChart" style="width: 100%;"></canvas>
+  </div>
 </div>
 
 <!-- 样式 -->
-<style>
-  button.range-btn {
-    border: none;
-    background: rgba(125,181,168,0.65);
-    color: white;
-    border-radius: 6px;
-    padding: 6px 12px;
-    margin-right: 10px;
-    cursor: pointer;
-    font-size: 0.9rem;
-    transition: background 0.2s ease, box-shadow 0.2s ease;
-  }
-
-  button.range-btn:hover {
-    background: rgb(105,161,148);
-  }
-
-  button.range-btn.active {
-    background: rgb(105,161,148);
-    box-shadow: 0 0 0 2px rgba(125,181,168, 0.4);
-  }
-</style>
-
-<!-- 脚本 -->
-<script>
-  let rangeLimit = 7; // 默认显示最近 7 天
-
-  function setRange(days, btn) {
-    rangeLimit = days;
-    drawChart(chartType); // 使用你已有的函数
-
-    // 清除所有按钮的高亮
-    document.querySelectorAll('.range-btn').forEach(b => b.classList.remove('active'));
-
-    // 高亮当前点击的按钮
-    if (btn) btn.classList.add('active');
-  }
-
-  // 保证 Chart.js 加载后 fetch 数据并初始化
-  window.addEventListener('DOMContentLoaded', () => {
-    fetchData(); // 你已有的函数
-  });
-</script>
-
-<!-- 图表切换按钮 -->
-<div style="margin-bottom: 10px;">
-  <button onclick="switchChart('total')">Total Followers</button>
-  <button onclick="switchChart('daily')">Daily Growth</button>
-  <button onclick="switchChart('rate')">Growth Rate (%)</button>
-</div>
-
-<!-- 图表容器 -->
-<div style="height: 240px;">
-  <canvas id="fansChart" style="width: 100%;"></canvas>
-</div>
-</div>
-
 <style>
   .fans-card {
     flex: 1;
@@ -96,19 +52,25 @@
   }
   button {
     border: none;
-    background: rgb(125,181,168,0.65);
+    background: rgba(125,181,168,0.65);
     color: white;
     border-radius: 6px;
     padding: 6px 12px;
     margin-right: 10px;
     cursor: pointer;
     font-size: 0.9rem;
+    transition: background 0.2s ease, box-shadow 0.2s ease;
   }
   button:hover {
     background: rgb(105,161,148);
   }
+  button.range-btn.active {
+    background: rgb(105,161,148);
+    box-shadow: 0 0 0 2px rgba(125,181,168, 0.4);
+  }
 </style>
 
+<!-- 脚本 -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
   const SHEET_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQUX3jbmcxIjz_VyFAy33PJzbYPVKPVXIEOSMdoy7bqRPOl-y1n-lZe8pkZ55WYwkQaqGEAQ0D_idrc/pub?output=csv';
@@ -116,7 +78,7 @@
   const fillColor = 'rgba(125,181,168,0.25)';
   let chart, totalData = [], dailyData = [], rateData = [], labels = [];
   let chartType = 'total';
-  let rangeLimit = null;
+  let rangeLimit = 7; // 默认显示最近 7 天
 
   async function fetchData() {
     const res = await fetch(SHEET_CSV_URL);
@@ -192,23 +154,8 @@
           borderColor: chartColor,
           backgroundColor: fillColor,
           fill: true,
-          pointRadius: function(ctx) {
-            const index = ctx.dataIndex;
-            const fullIndex = fullDataSet.indexOf(dataSet[index]);
-            if (type === 'daily' && dailyData[fullIndex] === Math.max(...dailyData)) {
-              return 3;
-            }
-            return 0;
-          },
-          pointBackgroundColor: function(ctx) {
-            const index = ctx.dataIndex;
-            const fullIndex = fullDataSet.indexOf(dataSet[index]);
-            if (type === 'daily' && dailyData[fullIndex] === Math.max(...dailyData)) {
-              return 'rgb(207, 10, 36)';
-            }
-            return chartColor;
-          },
-          pointHoverRadius: 5,
+          pointRadius: 0,
+          pointHoverRadius: 4,
           tension: 0.3,
           borderWidth: 1.5
         }]
@@ -250,9 +197,12 @@
     drawChart(viewType);
   }
 
-  function setRange(days) {
+  function setRange(days, btn) {
     rangeLimit = days;
     drawChart(chartType);
+
+    document.querySelectorAll('.range-btn').forEach(b => b.classList.remove('active'));
+    if (btn) btn.classList.add('active');
   }
 
   window.addEventListener('DOMContentLoaded', fetchData);
