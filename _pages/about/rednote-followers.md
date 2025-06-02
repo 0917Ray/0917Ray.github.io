@@ -2,34 +2,78 @@
 # 📕 Rednote Followers
 <!-- 小红书粉丝统计可视化 -->
 <div id="fans-wrapper" style="max-width: 800px; margin: 0 auto; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
-  <!-- 卡片统计区 -->
-  <div style="display: flex; gap: 12px; flex-wrap: wrap; justify-content: space-between; margin-bottom: 16px;">
-    <div class="fans-card" id="card-total"></div>
-    <div class="fans-card" id="card-yesterday"></div>
-    <div class="fans-card" id="card-7d"></div>
-    <div class="fans-card" id="card-30d"></div>
-    <div class="fans-card" id="card-maxday"></div>
-    <div class="fans-card" id="card-growthrate"></div>
-  </div>
+<!-- 卡片统计区 -->
+<div style="display: flex; gap: 12px; flex-wrap: wrap; justify-content: space-between; margin-bottom: 16px;">
+  <div class="fans-card" id="card-total"></div>
+  <div class="fans-card" id="card-yesterday"></div>
+  <div class="fans-card" id="card-7d"></div>
+  <div class="fans-card" id="card-30d"></div>
+  <div class="fans-card" id="card-maxday"></div>
+  <div class="fans-card" id="card-growthrate"></div>
+</div>
 
-  <!-- 时间范围按钮 -->
-  <div style="margin-bottom: 10px;">
-    <button onclick="setRange(7)">Last 7 Days</button>
-    <button onclick="setRange(30)">Last 30 Days</button>
-    <button onclick="setRange(null)">All</button>
-  </div>
+<!-- 时间范围按钮 -->
+<div style="margin-bottom: 10px;">
+  <button class="range-btn active" onclick="setRange(7, this)">Last 7 Days</button>
+  <button class="range-btn" onclick="setRange(30, this)">Last 30 Days</button>
+</div>
 
-  <!-- 图表切换按钮 -->
-  <div style="margin-bottom: 10px;">
-    <button onclick="switchChart('total')">Total Followers</button>
-    <button onclick="switchChart('daily')">Daily Growth</button>
-    <button onclick="switchChart('rate')">Growth Rate (%)</button>
-  </div>
+<!-- 样式 -->
+<style>
+  button.range-btn {
+    border: none;
+    background: rgba(125,181,168,0.65);
+    color: white;
+    border-radius: 6px;
+    padding: 6px 12px;
+    margin-right: 10px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background 0.2s ease, box-shadow 0.2s ease;
+  }
 
-  <!-- 图表容器 -->
-  <div style="height: 240px;">
-    <canvas id="fansChart" style="width: 100%;"></canvas>
-  </div>
+  button.range-btn:hover {
+    background: rgb(105,161,148);
+  }
+
+  button.range-btn.active {
+    background: rgb(105,161,148);
+    box-shadow: 0 0 0 2px rgba(125,181,168, 0.4);
+  }
+</style>
+
+<!-- 脚本 -->
+<script>
+  let rangeLimit = 7; // 默认显示最近 7 天
+
+  function setRange(days, btn) {
+    rangeLimit = days;
+    drawChart(chartType); // 使用你已有的函数
+
+    // 清除所有按钮的高亮
+    document.querySelectorAll('.range-btn').forEach(b => b.classList.remove('active'));
+
+    // 高亮当前点击的按钮
+    if (btn) btn.classList.add('active');
+  }
+
+  // 保证 Chart.js 加载后 fetch 数据并初始化
+  window.addEventListener('DOMContentLoaded', () => {
+    fetchData(); // 你已有的函数
+  });
+</script>
+
+<!-- 图表切换按钮 -->
+<div style="margin-bottom: 10px;">
+  <button onclick="switchChart('total')">Total Followers</button>
+  <button onclick="switchChart('daily')">Daily Growth</button>
+  <button onclick="switchChart('rate')">Growth Rate (%)</button>
+</div>
+
+<!-- 图表容器 -->
+<div style="height: 240px;">
+  <canvas id="fansChart" style="width: 100%;"></canvas>
+</div>
 </div>
 
 <style>
