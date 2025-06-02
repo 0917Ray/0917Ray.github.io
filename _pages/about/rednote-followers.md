@@ -1,6 +1,6 @@
 <span class="anchor" id="rednote-followers"></span>
 # 📕 Rednote Followers
-
+<!-- 小红书粉丝统计可视化 -->
 <div id="fans-wrapper" style="max-width: 800px; margin: 0 auto; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
   <!-- 卡片统计区 -->
   <div style="display: flex; gap: 12px; flex-wrap: wrap; justify-content: space-between; margin-bottom: 16px;">
@@ -14,8 +14,9 @@
 
   <!-- 时间范围按钮 -->
   <div style="margin-bottom: 10px;">
-    <button class="range-btn active" onclick="setRange(7, this)">Last 7 Days</button>
-    <button class="range-btn" onclick="setRange(30, this)">Last 30 Days</button>
+    <button onclick="setRange(7)">Last 7 Days</button>
+    <button onclick="setRange(30)">Last 30 Days</button>
+    <button onclick="setRange(null)">All</button>
   </div>
 
   <!-- 图表切换按钮 -->
@@ -31,7 +32,6 @@
   </div>
 </div>
 
-<!-- 样式 -->
 <style>
   .fans-card {
     flex: 1;
@@ -52,25 +52,19 @@
   }
   button {
     border: none;
-    background: rgba(125,181,168,0.65);
+    background: rgb(125,181,168,0.65);
     color: white;
     border-radius: 6px;
     padding: 6px 12px;
     margin-right: 10px;
     cursor: pointer;
     font-size: 0.9rem;
-    transition: background 0.2s ease, box-shadow 0.2s ease;
   }
   button:hover {
     background: rgb(105,161,148);
   }
-  button.range-btn.active {
-    background: rgb(105,161,148);
-    box-shadow: 0 0 0 2px rgba(125,181,168, 0.4);
-  }
 </style>
 
-<!-- 脚本 -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
   const SHEET_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQUX3jbmcxIjz_VyFAy33PJzbYPVKPVXIEOSMdoy7bqRPOl-y1n-lZe8pkZ55WYwkQaqGEAQ0D_idrc/pub?output=csv';
@@ -78,7 +72,7 @@
   const fillColor = 'rgba(125,181,168,0.25)';
   let chart, totalData = [], dailyData = [], rateData = [], labels = [];
   let chartType = 'total';
-  let rangeLimit = 7; // 默认显示最近 7 天
+  let rangeLimit = null;
 
   async function fetchData() {
     const res = await fetch(SHEET_CSV_URL);
@@ -125,12 +119,12 @@
     const maxIndex = dailyData.findIndex(x => x === maxGrowth);
     const maxDate = labels[maxIndex];
 
-    document.getElementById('card-total').innerHTML = `Total Followers<span>${latest}</span>`;
-    document.getElementById('card-yesterday').innerHTML = `Yesterday's Growth<span>${latest - yesterday}</span>`;
-    document.getElementById('card-7d').innerHTML = `7-Day Growth<span>${sum7}</span>`;
-    document.getElementById('card-30d').innerHTML = `30-Day Growth<span>${sum30}</span>`;
-    document.getElementById('card-maxday').innerHTML = `Max Daily Growth<span>${maxGrowth} (${maxDate})</span>`;
-    document.getElementById('card-growthrate').innerHTML = `Avg 7-Day Rate<span>${avgRate7.toFixed(2)}%</span>`;
+    document.getElementById('card-total').innerHTML = Total Followers<span>${latest}</span>;
+    document.getElementById('card-yesterday').innerHTML = Yesterday's Growth<span>${latest - yesterday}</span>;
+    document.getElementById('card-7d').innerHTML = 7-Day Growth<span>${sum7}</span>;
+    document.getElementById('card-30d').innerHTML = 30-Day Growth<span>${sum30}</span>;
+    document.getElementById('card-maxday').innerHTML = Max Daily Growth<span>${maxGrowth} (${maxDate})</span>;
+    document.getElementById('card-growthrate').innerHTML = Avg 7-Day Rate<span>${avgRate7.toFixed(2)}%</span>;
   }
 
   function drawChart(type = 'total') {
@@ -154,8 +148,23 @@
           borderColor: chartColor,
           backgroundColor: fillColor,
           fill: true,
-          pointRadius: 0,
-          pointHoverRadius: 4,
+          pointRadius: function(ctx) {
+            const index = ctx.dataIndex;
+            const fullIndex = fullDataSet.indexOf(dataSet[index]);
+            if (type === 'daily' && dailyData[fullIndex] === Math.max(...dailyData)) {
+              return 3;
+            }
+            return 0;
+          },
+          pointBackgroundColor: function(ctx) {
+            const index = ctx.dataIndex;
+            const fullIndex = fullDataSet.indexOf(dataSet[index]);
+            if (type === 'daily' && dailyData[fullIndex] === Math.max(...dailyData)) {
+              return 'rgb(207, 10, 36)';
+            }
+            return chartColor;
+          },
+          pointHoverRadius: 5,
           tension: 0.3,
           borderWidth: 1.5
         }]
@@ -197,12 +206,9 @@
     drawChart(viewType);
   }
 
-  function setRange(days, btn) {
+  function setRange(days) {
     rangeLimit = days;
     drawChart(chartType);
-
-    document.querySelectorAll('.range-btn').forEach(b => b.classList.remove('active'));
-    if (btn) btn.classList.add('active');
   }
 
   window.addEventListener('DOMContentLoaded', fetchData);
