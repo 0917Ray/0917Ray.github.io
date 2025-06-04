@@ -146,6 +146,9 @@
   const dataSet = rangeLimit ? fullDataSet.slice(-rangeLimit) : fullDataSet;
   const shownLabels = rangeLimit ? fullLabels.slice(-rangeLimit) : fullLabels;
 
+  // 当前视图范围内最大值（仅 daily / rate 模式下使用）
+  const localMax = Math.max(...dataSet);
+
   if (chart) chart.destroy();
 
   chart = new Chart(document.getElementById('fansChart'), {
@@ -161,21 +164,13 @@
         tension: 0.3,
         borderWidth: 1.5,
         pointRadius: function(ctx) {
-          const index = ctx.dataIndex;
-          const fullIndex = fullLabels.indexOf(shownLabels[index]);
-          if (type === 'daily' && dailyData[fullIndex] === Math.max(...dailyData)) {
-            return 4;
-          }
-          if (type === 'rate' && rateData[fullIndex] === Math.max(...rateData)) {
+          if ((type === 'daily' || type === 'rate') && ctx.raw === localMax) {
             return 4;
           }
           return 0;
         },
         pointBackgroundColor: function(ctx) {
-          const index = ctx.dataIndex;
-          const fullIndex = fullLabels.indexOf(shownLabels[index]);
-          if ((type === 'daily' && dailyData[fullIndex] === Math.max(...dailyData)) ||
-              (type === 'rate' && rateData[fullIndex] === Math.max(...rateData))) {
+          if ((type === 'daily' || type === 'rate') && ctx.raw === localMax) {
             return 'rgb(207, 10, 36)';
           }
           return chartColor;
@@ -210,6 +205,7 @@
     }
   });
 }
+
 
 
   function switchChart(viewType) {
