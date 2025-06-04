@@ -138,59 +138,79 @@
   }
 
   function drawChart(type = 'total') {
-    chartType = type;
-    const fullDataSet = type === 'total' ? totalData : (type === 'daily' ? dailyData : rateData);
-    const label = type === 'total' ? 'Total Followers' : (type === 'daily' ? 'Daily Growth' : 'Growth Rate (%)');
-    const fullLabels = labels;
+  chartType = type;
+  const fullDataSet = type === 'total' ? totalData : (type === 'daily' ? dailyData : rateData);
+  const label = type === 'total' ? 'Total Followers' : (type === 'daily' ? 'Daily Growth' : 'Growth Rate (%)');
+  const fullLabels = labels;
 
-    const dataSet = rangeLimit ? fullDataSet.slice(-rangeLimit) : fullDataSet;
-    const shownLabels = rangeLimit ? fullLabels.slice(-rangeLimit) : fullLabels;
+  const dataSet = rangeLimit ? fullDataSet.slice(-rangeLimit) : fullDataSet;
+  const shownLabels = rangeLimit ? fullLabels.slice(-rangeLimit) : fullLabels;
 
-    if (chart) chart.destroy();
+  if (chart) chart.destroy();
 
-    chart = new Chart(document.getElementById('fansChart'), {
-      type: 'line',
-      data: {
-        labels: shownLabels,
-        datasets: [{
-          label: label,
-          data: dataSet,
-          borderColor: chartColor,
-          backgroundColor: fillColor,
-          fill: true,
-          tension: 0.3,
-          borderWidth: 1.5,
-          pointRadius: 0,
-          pointHoverRadius: 5
-        }]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-          legend: { display: false },
-          tooltip: {
-            backgroundColor: 'rgba(0,0,0,0.8)',
-            titleFont: { size: 13 },
-            bodyFont: { size: 12 },
-            padding: 10,
-            callbacks: {
-              title: (items) => '📅 ' + items[0].label,
-              label: (item) => '📈 ' + item.dataset.label + ': ' + item.formattedValue
-            }
+  chart = new Chart(document.getElementById('fansChart'), {
+    type: 'line',
+    data: {
+      labels: shownLabels,
+      datasets: [{
+        label: label,
+        data: dataSet,
+        borderColor: chartColor,
+        backgroundColor: fillColor,
+        fill: true,
+        tension: 0.3,
+        borderWidth: 1.5,
+        pointRadius: function(ctx) {
+          const index = ctx.dataIndex;
+          const fullIndex = fullLabels.indexOf(shownLabels[index]);
+          if (type === 'daily' && dailyData[fullIndex] === Math.max(...dailyData)) {
+            return 4;
           }
+          if (type === 'rate' && rateData[fullIndex] === Math.max(...rateData)) {
+            return 4;
+          }
+          return 0;
         },
-        scales: {
-          x: { ticks: { maxTicksLimit: 10 } },
-          y: {
-            beginAtZero: (type === 'rate'),
-            suggestedMin: (type === 'rate') ? 0 : Math.floor(Math.min(...dataSet) * 0.95),
-            suggestedMax: Math.ceil(Math.max(...dataSet) * 1.05)
+        pointBackgroundColor: function(ctx) {
+          const index = ctx.dataIndex;
+          const fullIndex = fullLabels.indexOf(shownLabels[index]);
+          if ((type === 'daily' && dailyData[fullIndex] === Math.max(...dailyData)) ||
+              (type === 'rate' && rateData[fullIndex] === Math.max(...rateData))) {
+            return 'rgb(207, 10, 36)';
+          }
+          return chartColor;
+        },
+        pointHoverRadius: 5
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          backgroundColor: 'rgba(0,0,0,0.8)',
+          titleFont: { size: 13 },
+          bodyFont: { size: 12 },
+          padding: 10,
+          callbacks: {
+            title: (items) => '📅 ' + items[0].label,
+            label: (item) => '📈 ' + item.dataset.label + ': ' + item.formattedValue
           }
         }
+      },
+      scales: {
+        x: { ticks: { maxTicksLimit: 10 } },
+        y: {
+          beginAtZero: (type === 'rate'),
+          suggestedMin: (type === 'rate') ? 0 : Math.floor(Math.min(...dataSet) * 0.95),
+          suggestedMax: Math.ceil(Math.max(...dataSet) * 1.05)
+        }
       }
-    });
-  }
+    }
+  });
+}
+
 
   function switchChart(viewType) {
     chartType = viewType;
