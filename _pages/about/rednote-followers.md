@@ -1,9 +1,7 @@
 <span class="anchor" id="rednote-followers"></span>
-# 📕 Rednote Followers
+<h2>📕 Rednote Followers</h2>
 
-<!-- 小红书粉丝统计可视化 -->
 <div id="fans-wrapper" style="max-width: 800px; margin: 0 auto; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
-
   <!-- 卡片统计区 -->
   <div style="display: flex; gap: 12px; flex-wrap: wrap; justify-content: space-between; margin-bottom: 16px;">
     <div class="fans-card" id="card-total"></div>
@@ -30,7 +28,7 @@
 
   <!-- 图表容器 -->
   <div style="height: 240px;">
-    <canvas id="fansChart" style="width: 100%;"></canvas>
+    <canvas id="fansChart" width="800" height="240" style="width: 100%;"></canvas>
   </div>
 </div>
 
@@ -75,9 +73,9 @@
   }
 </style>
 
-<!-- 加载 Chart.js 和 annotation 插件 -->
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation@1.3.2"></script>
+<!-- ✅ Chart.js v4 + Annotation 插件 -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation@4.0.1/dist/chartjs-plugin-annotation.min.js"></script>
 <script>
   Chart.register(window['chartjs-plugin-annotation']);
 
@@ -169,7 +167,7 @@
           borderWidth: 1.5,
           pointRadius: function(ctx) {
             if ((type === 'daily' || type === 'rate') && ctx.raw === localMax) {
-              return 4;
+              return 5;
             }
             return 0;
           },
@@ -179,7 +177,7 @@
             }
             return chartColor;
           },
-          pointHoverRadius: 5
+          pointHoverRadius: 6
         }]
       },
       options: {
@@ -203,7 +201,7 @@
                 type: 'line',
                 yMin: average,
                 yMax: average,
-                borderColor: 'rgba(255, 99, 132, 0.5)',
+                borderColor: 'rgba(255, 99, 132, 0.4)',
                 borderDash: [6, 4],
                 borderWidth: 1.5,
                 label: {
