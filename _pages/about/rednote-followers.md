@@ -1,5 +1,5 @@
 <span class="anchor" id="rednote-followers"></span>
-<h2>📕 Rednote Followers</h2>
+# 📕 Rednote Followers
 
 <div id="fans-wrapper" style="max-width: 800px; margin: 0 auto; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
   <!-- 卡片统计区 -->
@@ -28,7 +28,7 @@
 
   <!-- 图表容器 -->
   <div style="height: 240px;">
-    <canvas id="fansChart" width="800" height="240" style="width: 100%;"></canvas>
+    <canvas id="fansChart" style="width: 100%;"></canvas>
   </div>
 </div>
 
@@ -43,7 +43,6 @@
     color: #333;
     font-size: 0.9rem;
   }
-
   .fans-card span {
     display: block;
     font-weight: bold;
@@ -51,7 +50,6 @@
     margin-top: 6px;
     color: rgb(125,181,168);
   }
-
   button {
     border: none;
     background: rgba(125,181,168,0.65);
@@ -62,23 +60,18 @@
     cursor: pointer;
     font-size: 0.9rem;
   }
-
   button:hover {
     background: rgb(105,161,148);
   }
-
   button.active {
     background: rgb(105,161,148);
     font-weight: bold;
   }
 </style>
 
-<!-- ✅ Chart.js v4 + Annotation 插件 -->
-<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation@4.0.1/dist/chartjs-plugin-annotation.min.js"></script>
+<!-- 引入 Chart.js（不引入 annotation 插件） -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-  Chart.register(window['chartjs-plugin-annotation']);
-
   const SHEET_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQUX3jbmcxIjz_VyFAy33PJzbYPVKPVXIEOSMdoy7bqRPOl-y1n-lZe8pkZ55WYwkQaqGEAQ0D_idrc/pub?output=csv';
   const chartColor = 'rgba(125,181,168,0.95)';
   const fillColor = 'rgba(125,181,168,0.25)';
@@ -149,7 +142,6 @@
     const shownLabels = rangeLimit ? fullLabels.slice(-rangeLimit) : fullLabels;
 
     const localMax = Math.max(...dataSet);
-    const average = dataSet.reduce((a, b) => a + b, 0) / dataSet.length;
 
     if (chart) chart.destroy();
 
@@ -167,7 +159,7 @@
           borderWidth: 1.5,
           pointRadius: function(ctx) {
             if ((type === 'daily' || type === 'rate') && ctx.raw === localMax) {
-              return 5;
+              return 4;
             }
             return 0;
           },
@@ -177,7 +169,7 @@
             }
             return chartColor;
           },
-          pointHoverRadius: 6
+          pointHoverRadius: 5
         }]
       },
       options: {
@@ -193,27 +185,6 @@
             callbacks: {
               title: (items) => '📅 ' + items[0].label,
               label: (item) => '📈 ' + item.dataset.label + ': ' + item.formattedValue
-            }
-          },
-          annotation: {
-            annotations: {
-              avgLine: {
-                type: 'line',
-                yMin: average,
-                yMax: average,
-                borderColor: 'rgba(255, 99, 132, 0.4)',
-                borderDash: [6, 4],
-                borderWidth: 1.5,
-                label: {
-                  content: 'Avg',
-                  enabled: true,
-                  position: 'end',
-                  backgroundColor: 'rgba(255, 99, 132, 0.8)',
-                  color: 'white',
-                  font: { size: 11, weight: 'bold' },
-                  padding: 4
-                }
-              }
             }
           }
         },
