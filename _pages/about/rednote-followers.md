@@ -1,5 +1,6 @@
 <span class="anchor" id="rednote-followers"></span>
 # 📕 Rednote Followers
+
 <!-- 小红书粉丝统计可视化 -->
 <div id="fans-wrapper" style="max-width: 800px; margin: 0 auto; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
   <!-- 卡片统计区 -->
@@ -28,7 +29,7 @@
 
   <!-- 图表容器 -->
   <div style="height: 240px;">
-    <canvas id="fansChart" style="width: 100%;"></canvas>
+    <canvas id="fansChart" style="width: 100%; height: 240px;"></canvas>
   </div>
 </div>
 
@@ -43,6 +44,7 @@
     color: #333;
     font-size: 0.9rem;
   }
+
   .fans-card span {
     display: block;
     font-weight: bold;
@@ -50,9 +52,10 @@
     margin-top: 6px;
     color: rgb(125,181,168);
   }
+
   button {
     border: none;
-    background: rgb(125,181,168,0.65);
+    background: rgba(125,181,168,0.65);
     color: white;
     border-radius: 6px;
     padding: 6px 12px;
@@ -60,13 +63,20 @@
     cursor: pointer;
     font-size: 0.9rem;
   }
+
   button:hover {
     background: rgb(105,161,148);
   }
+
+  button.active {
+    background: rgb(105,161,148);
+    font-weight: bold;
+  }
 </style>
 
+<!-- 引入 Chart.js -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation@1.1.0"></script>
+
 <script>
   const SHEET_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQUX3jbmcxIjz_VyFAy33PJzbYPVKPVXIEOSMdoy7bqRPOl-y1n-lZe8pkZ55WYwkQaqGEAQ0D_idrc/pub?output=csv';
   const chartColor = 'rgba(125,181,168,0.95)';
@@ -120,92 +130,95 @@
     const maxIndex = dailyData.findIndex(x => x === maxGrowth);
     const maxDate = labels[maxIndex];
 
-    document.getElementById('card-total').innerHTML = Total Followers<span>${latest}</span>;
-    document.getElementById('card-yesterday').innerHTML = Yesterday's Growth<span>${latest - yesterday}</span>;
-    document.getElementById('card-7d').innerHTML = 7-Day Growth<span>${sum7}</span>;
-    document.getElementById('card-30d').innerHTML = 30-Day Growth<span>${sum30}</span>;
-    document.getElementById('card-maxday').innerHTML = Max Daily Growth<span>${maxGrowth} (${maxDate})</span>;
-    document.getElementById('card-growthrate').innerHTML = Avg 7-Day Rate<span>${avgRate7.toFixed(2)}%</span>;
+    document.getElementById('card-total').innerHTML = `Total Followers<span>${latest}</span>`;
+    document.getElementById('card-yesterday').innerHTML = `Yesterday's Growth<span>${latest - yesterday}</span>`;
+    document.getElementById('card-7d').innerHTML = `7-Day Growth<span>${sum7}</span>`;
+    document.getElementById('card-30d').innerHTML = `30-Day Growth<span>${sum30}</span>`;
+    document.getElementById('card-maxday').innerHTML = `Max Daily Growth<span>${maxGrowth} (${maxDate})</span>`;
+    document.getElementById('card-growthrate').innerHTML = `Avg 7-Day Rate<span>${avgRate7.toFixed(2)}%</span>`;
   }
 
   function drawChart(type = 'total') {
-  chartType = type;
-  const fullDataSet = type === 'total' ? totalData : (type === 'daily' ? dailyData : rateData);
-  const label = type === 'total' ? 'Total Followers' : (type === 'daily' ? 'Daily Growth' : 'Growth Rate (%)');
-  const fullLabels = labels;
+    chartType = type;
+    const fullDataSet = type === 'total' ? totalData : (type === 'daily' ? dailyData : rateData);
+    const label = type === 'total' ? 'Total Followers' : (type === 'daily' ? 'Daily Growth' : 'Growth Rate (%)');
+    const fullLabels = labels;
 
-  const dataSet = rangeLimit ? fullDataSet.slice(-rangeLimit) : fullDataSet;
-  const shownLabels = rangeLimit ? fullLabels.slice(-rangeLimit) : fullLabels;
+    const dataSet = rangeLimit ? fullDataSet.slice(-rangeLimit) : fullDataSet;
+    const shownLabels = rangeLimit ? fullLabels.slice(-rangeLimit) : fullLabels;
+    const localMax = Math.max(...dataSet);
 
-  // 当前视图范围内最大值（仅 daily / rate 模式下使用）
-  const localMax = Math.max(...dataSet);
+    if (chart) chart.destroy();
 
-  if (chart) chart.destroy();
-
-  chart = new Chart(document.getElementById('fansChart'), {
-    type: 'line',
-    data: {
-      labels: shownLabels,
-      datasets: [{
-        label: label,
-        data: dataSet,
-        borderColor: chartColor,
-        backgroundColor: fillColor,
-        fill: true,
-        tension: 0.3,
-        borderWidth: 1.5,
-        pointRadius: function(ctx) {
-          if ((type === 'daily' || type === 'rate') && ctx.raw === localMax) {
-            return 4;
-          }
-          return 0;
-        },
-        pointBackgroundColor: function(ctx) {
-          if ((type === 'daily' || type === 'rate') && ctx.raw === localMax) {
-            return 'rgb(207, 10, 36)';
-          }
-          return chartColor;
-        },
-        pointHoverRadius: 5
-      }]
-    },
-    options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      plugins: {
-        legend: { display: false },
-        tooltip: {
-          backgroundColor: 'rgba(0,0,0,0.8)',
-          titleFont: { size: 13 },
-          bodyFont: { size: 12 },
-          padding: 10,
-          callbacks: {
-            title: (items) => '📅 ' + items[0].label,
-            label: (item) => '📈 ' + item.dataset.label + ': ' + item.formattedValue
-          }
-        }
+    chart = new Chart(document.getElementById('fansChart'), {
+      type: 'line',
+      data: {
+        labels: shownLabels,
+        datasets: [{
+          label: label,
+          data: dataSet,
+          borderColor: chartColor,
+          backgroundColor: fillColor,
+          fill: true,
+          tension: 0.3,
+          borderWidth: 1.5,
+          pointRadius: function(ctx) {
+            if ((type === 'daily' || type === 'rate') && ctx.raw === localMax) {
+              return 4;
+            }
+            return 0;
+          },
+          pointBackgroundColor: function(ctx) {
+            if ((type === 'daily' || type === 'rate') && ctx.raw === localMax) {
+              return 'rgb(207, 10, 36)';
+            }
+            return chartColor;
+          },
+          pointHoverRadius: 5
+        }]
       },
-      scales: {
-        x: { ticks: { maxTicksLimit: 10 } },
-        y: {
-          beginAtZero: (type === 'rate'),
-          suggestedMin: (type === 'rate') ? 0 : Math.floor(Math.min(...dataSet) * 0.95),
-          suggestedMax: Math.ceil(Math.max(...dataSet) * 1.05)
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { display: false },
+          tooltip: {
+            backgroundColor: 'rgba(0,0,0,0.8)',
+            titleFont: { size: 13 },
+            bodyFont: { size: 12 },
+            padding: 10,
+            callbacks: {
+              title: (items) => '📅 ' + items[0].label,
+              label: (item) => '📈 ' + item.dataset.label + ': ' + item.formattedValue
+            }
+          }
+        },
+        scales: {
+          x: { ticks: { maxTicksLimit: 10 } },
+          y: {
+            beginAtZero: (type === 'rate'),
+            suggestedMin: (type === 'rate') ? 0 : Math.floor(Math.min(...dataSet) * 0.95),
+            suggestedMax: Math.ceil(Math.max(...dataSet) * 1.05)
+          }
         }
       }
-    }
-  });
-}
-
+    });
+  }
 
   function switchChart(viewType) {
     chartType = viewType;
     drawChart(viewType);
+    document.querySelectorAll('button[data-chart]').forEach(btn => {
+      btn.classList.toggle('active', btn.textContent.includes(viewType));
+    });
   }
 
   function setRange(days) {
     rangeLimit = days;
     drawChart(chartType);
+    document.querySelectorAll('button[data-range]').forEach(btn => {
+      btn.classList.toggle('active', btn.textContent.includes(days === null ? 'All' : days));
+    });
   }
 
   window.addEventListener('DOMContentLoaded', fetchData);
