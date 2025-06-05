@@ -14,17 +14,17 @@
   </div>
 
   <!-- 时间范围按钮 -->
-  <div style="margin-bottom: 10px;">
-    <button onclick="setRange(7)">Last 7 Days</button>
-    <button onclick="setRange(30)">Last 30 Days</button>
-    <button onclick="setRange(null)">All</button>
+  <div style="margin-bottom: 10px;" id="range-buttons">
+  <button data-range="7" onclick="setRange(7)">Last 7 Days</button>
+  <button data-range="30" onclick="setRange(30)">Last 30 Days</button>
+  <button data-range="all" onclick="setRange(null)">All</button>
   </div>
 
   <!-- 图表切换按钮 -->
-  <div style="margin-bottom: 10px;">
-    <button onclick="switchChart('total')">Total Followers</button>
-    <button onclick="switchChart('daily')">Daily Growth</button>
-    <button onclick="switchChart('rate')">Growth Rate (%)</button>
+  <div style="margin-bottom: 10px;" id="chart-buttons">
+  <button data-chart="total" onclick="switchChart('total')">Total Followers</button>
+  <button data-chart="daily" onclick="switchChart('daily')">Daily Growth</button>
+  <button data-chart="rate" onclick="switchChart('rate')">Growth Rate (%)</button>
   </div>
 
   <!-- 图表容器 -->
@@ -206,19 +206,21 @@
   }
 
   function switchChart(viewType) {
-    chartType = viewType;
-    drawChart(viewType);
-    document.querySelectorAll('button[data-chart]').forEach(btn => {
-      btn.classList.toggle('active', btn.textContent.includes(viewType));
-    });
+  chartType = viewType;
+  drawChart(viewType);
+  document.querySelectorAll('#chart-buttons button').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.chart === viewType);
+  });
   }
 
   function setRange(days) {
-    rangeLimit = days;
-    drawChart(chartType);
-    document.querySelectorAll('button[data-range]').forEach(btn => {
-      btn.classList.toggle('active', btn.textContent.includes(days === null ? 'All' : days));
-    });
+  rangeLimit = days;
+  drawChart(chartType);
+  document.querySelectorAll('#range-buttons button').forEach(btn => {
+    const isAll = days === null && btn.dataset.range === 'all';
+    const isMatch = btn.dataset.range == days;
+    btn.classList.toggle('active', isAll || isMatch);
+  });
   }
 
   window.addEventListener('DOMContentLoaded', fetchData);
