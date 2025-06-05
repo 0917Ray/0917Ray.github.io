@@ -1,6 +1,6 @@
 <span class="anchor" id="rednote-followers"></span>
 # 📕 Rednote Followers
-
+<!-- 小红书粉丝统计可视化 -->
 <div id="fans-wrapper" style="max-width: 800px; margin: 0 auto; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
   <!-- 卡片统计区 -->
   <div style="display: flex; gap: 12px; flex-wrap: wrap; justify-content: space-between; margin-bottom: 16px;">
@@ -13,17 +13,17 @@
   </div>
 
   <!-- 时间范围按钮 -->
-  <div id="range-buttons" style="margin-bottom: 10px;">
-    <button onclick="setRange(7)" data-range="7">Last 7 Days</button>
-    <button onclick="setRange(30)" data-range="30">Last 30 Days</button>
-    <button onclick="setRange(null)" data-range="all">All</button>
+  <div style="margin-bottom: 10px;">
+    <button onclick="setRange(7)">Last 7 Days</button>
+    <button onclick="setRange(30)">Last 30 Days</button>
+    <button onclick="setRange(null)">All</button>
   </div>
 
   <!-- 图表切换按钮 -->
-  <div id="chart-buttons" style="margin-bottom: 10px;">
-    <button onclick="switchChart('total')" data-chart="total">Total Followers</button>
-    <button onclick="switchChart('daily')" data-chart="daily">Daily Growth</button>
-    <button onclick="switchChart('rate')" data-chart="rate">Growth Rate (%)</button>
+  <div style="margin-bottom: 10px;">
+    <button onclick="switchChart('total')">Total Followers</button>
+    <button onclick="switchChart('daily')">Daily Growth</button>
+    <button onclick="switchChart('rate')">Growth Rate (%)</button>
   </div>
 
   <!-- 图表容器 -->
@@ -52,7 +52,7 @@
   }
   button {
     border: none;
-    background: rgba(125,181,168,0.65);
+    background: rgb(125,181,168,0.65);
     color: white;
     border-radius: 6px;
     padding: 6px 12px;
@@ -62,10 +62,6 @@
   }
   button:hover {
     background: rgb(105,161,148);
-  }
-  button.active {
-    background: rgb(105,161,148);
-    font-weight: bold;
   }
 </style>
 
@@ -140,8 +136,8 @@
   const dataSet = rangeLimit ? fullDataSet.slice(-rangeLimit) : fullDataSet;
   const shownLabels = rangeLimit ? fullLabels.slice(-rangeLimit) : fullLabels;
 
+  // 当前视图范围内最大值（仅 daily / rate 模式下使用）
   const localMax = Math.max(...dataSet);
-  const average = dataSet.reduce((a, b) => a + b, 0) / dataSet.length;
 
   if (chart) chart.destroy();
 
@@ -186,30 +182,6 @@
             title: (items) => '📅 ' + items[0].label,
             label: (item) => '📈 ' + item.dataset.label + ': ' + item.formattedValue
           }
-        },
-        annotation: {
-          annotations: {
-            avgLine: {
-              type: 'line',
-              yMin: average,
-              yMax: average,
-              borderColor: 'rgba(255, 99, 132, 0.5)',
-              borderDash: [6, 4],
-              borderWidth: 1.5,
-              label: {
-                content: 'Avg',
-                enabled: true,
-                position: 'end',
-                backgroundColor: 'rgba(255, 99, 132, 0.8)',
-                color: 'white',
-                font: {
-                  size: 11,
-                  weight: 'bold'
-                },
-                padding: 4
-              }
-            }
-          }
         }
       },
       scales: {
@@ -220,27 +192,19 @@
           suggestedMax: Math.ceil(Math.max(...dataSet) * 1.05)
         }
       }
-    },
-    plugins: [Chart.registry.getPlugin('annotation')]
+    }
   });
 }
+
 
   function switchChart(viewType) {
     chartType = viewType;
     drawChart(viewType);
-    document.querySelectorAll('#chart-buttons button').forEach(btn => {
-      btn.classList.toggle('active', btn.dataset.chart === viewType);
-    });
   }
 
   function setRange(days) {
     rangeLimit = days;
     drawChart(chartType);
-    document.querySelectorAll('#range-buttons button').forEach(btn => {
-      btn.classList.toggle('active', 
-        (btn.dataset.range === 'all' && days === null) || btn.dataset.range == days
-      );
-    });
   }
 
   window.addEventListener('DOMContentLoaded', fetchData);
