@@ -12,6 +12,7 @@
 <!-- <span class="note">....</span> -->
 <!-- ========================================================================================================================================== -->
 # 🎯 News
+- *2025.06.23* I joined the [School of Data Science](https://sds.cuhk.edu.cn/en) at the Chinese University of Hong Kong(Shenzhen) as a research assistant and was supervised by Professor [Sun Ruoyu](https://ruoyus.github.io/).
 - *2025.05.10* I have completed my undergraduate thesis defense, so happy!
 - *2025.05.06* I accepted the PhD offer from CS department of CityUHK!
 - *2025.04.01* I was selected as the [outstanding undergraduate graduate of the School of Mathematics and Statistics in 2025](https://maths.whu.edu.cn/info/1197/134921.htm).
