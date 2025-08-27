@@ -12,6 +12,7 @@
 <!-- <span class="note">....</span> -->
 <!-- ========================================================================================================================================== -->
 # 🎯 News
+- *2025.09.01* I began my research life in CityUHK!
 - *2025.06.23* I joined the [School of Data Science](https://sds.cuhk.edu.cn/en) at the Chinese University of Hong Kong(Shenzhen) as a research assistant and was supervised by Professor [Ruoyu Sun](https://ruoyus.github.io/).
 - *2025.05.10* I have completed my undergraduate thesis defense, so happy!
 - *2025.05.06* I accepted the PhD offer from CS department of CityUHK!
