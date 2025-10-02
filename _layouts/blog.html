@@ -1,0 +1,135 @@
+---
+layout: default
+---
+
+<div class="page__content">
+  <h1>{{ page.title | default: "Blog" }}</h1>
+
+  <!-- 语言切换 -->
+  <div id="lang-filter" style="margin: 1rem 0;">
+    <button class="btn-lang" data-lang="all">全部 / All</button>
+    <button class="btn-lang" data-lang="zh">中文</button>
+    <button class="btn-lang" data-lang="en">English</button>
+  </div>
+
+  <!-- 标签筛选（下拉 & 多选） -->
+  <div id="tag-filter" style="margin: 0.5rem 0 1.5rem 0;">
+    <label for="tagSelect">标签：</label>
+    <select id="tagSelect">
+      <option value="all">全部标签</option>
+      {% assign all_tags = "" | split: "" %}
+      {% for post in site.posts %}
+        {% if post.tags %}
+          {% for t in post.tags %}
+            {% assign all_tags = all_tags | push: t %}
+          {% endfor %}
+        {% endif %}
+      {% endfor %}
+      {% assign uniq_tags = all_tags | uniq | sort %}
+      {% for t in uniq_tags %}
+        <option value="{{ t | escape }}">{{ t }}</option>
+      {% endfor %}
+    </select>
+  </div>
+
+  <!-- 列表 -->
+  <div id="post-list">
+    {% assign posts_sorted = site.posts | sort: "date" | reverse %}
+    {% for post in posts_sorted %}
+      {% assign post_lang = post.lang | default: "en" %}
+      <article class="post-card"
+               data-lang="{{ post_lang }}"
+               data-tags="{{ post.tags | join: ',' | downcase }}">
+        <h3 class="post-title">
+          <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+        </h3>
+        <p class="post-meta">
+          <time datetime="{{ post.date | date_to_xmlschema }}">
+            {{ post.date | date: "%Y-%m-%d" }}
+          </time>
+          · <span class="badge-lang">{{ post_lang == "zh" ? "中文" : "EN" }}</span>
+          {% if post.tags and post.tags.size > 0 %}
+            · <span class="post-tags">
+              {% for t in post.tags %}
+                <a href="{{ '/tags/#' | append: t | relative_url }}" class="tag">#{{ t }}</a>{% unless forloop.last %}, {% endunless %}
+              {% endfor %}
+            </span>
+          {% endif %}
+        </p>
+        {% if post.excerpt %}
+          <p class="post-excerpt">{{ post.excerpt | strip_html | truncate: 150 }}</p>
+        {% endif %}
+      </article>
+    {% endfor %}
+  </div>
+</div>
+
+<style>
+  .post-card {
+    border: 1px solid rgba(125,181,168, 0.25);
+    border-radius: 10px;
+    padding: 12px 14px;
+    margin-bottom: 14px;
+    transition: box-shadow 0.2s ease, transform 0.1s ease;
+  }
+  .post-card:hover { box-shadow: 0 6px 18px rgba(0,0,0,0.06); transform: translateY(-1px); }
+  .badge-lang { font-weight: 600; }
+  .tag { text-decoration: none; }
+  .btn-lang {
+    margin-right: 8px;
+    padding: 6px 10px;
+    border-radius: 8px;
+    border: 1px solid rgba(125,181,168, 0.6);
+    background: rgba(125,181,168, 0.10);
+    cursor: pointer;
+  }
+  .btn-lang.active {
+    background: rgba(125,181,168, 0.20);
+  }
+</style>
+
+<script>
+  (function() {
+    const listEl = document.getElementById('post-list');
+    const btns = document.querySelectorAll('.btn-lang');
+    const tagSelect = document.getElementById('tagSelect');
+
+    let currentLang = 'all';
+    let currentTag = 'all';
+
+    function matchTag(dataTags, wanted) {
+      if (wanted === 'all') return true;
+      if (!dataTags) return false;
+      return dataTags.split(',').map(s => s.trim().toLowerCase()).includes(wanted.toLowerCase());
+    }
+
+    function applyFilter() {
+      const cards = listEl.querySelectorAll('.post-card');
+      cards.forEach(card => {
+        const lang = card.getAttribute('data-lang') || 'en';
+        const tags = card.getAttribute('data-tags') || '';
+        const langOk = (currentLang === 'all') || (lang === currentLang);
+        const tagOk = matchTag(tags, currentTag);
+        card.style.display = (langOk && tagOk) ? '' : 'none';
+      });
+    }
+
+    btns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        btns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        currentLang = btn.dataset.lang; // 'all' | 'zh' | 'en'
+        applyFilter();
+      });
+    });
+
+    tagSelect.addEventListener('change', () => {
+      currentTag = tagSelect.value;
+      applyFilter();
+    });
+
+    // 初始状态
+    document.querySelector('.btn-lang[data-lang="all"]').classList.add('active');
+    applyFilter();
+  })();
+</script>
