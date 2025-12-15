@@ -11,4 +11,7 @@
 <span class="anchor" id="honors-and-awards"></span>
 <!-- ========================================================================================================================================== -->
 # 📚 Teaching
-- GE1362, Exploring Generative AI in Practice, 2025 Fall
+
+- *2025 Fall* ‧ GE1362: Exploring Generative AI in Practice
+  <span class="note">Teaching Assistant</span>
+  
