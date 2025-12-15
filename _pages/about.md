@@ -20,6 +20,7 @@ redirect_from:
 {% include_relative about/publications.md %}
 {% include_relative about/honors.md %}
 {% include_relative about/educations.md %}
+{% include_relative about/teaching.md %}
 {% include_relative about/hobbies.md %}
 {% include_relative about/reading-notes.md %}
 {% include_relative about/rednote-followers.md %}
