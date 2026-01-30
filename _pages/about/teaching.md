@@ -12,7 +12,7 @@
 <!-- ========================================================================================================================================== -->
 # 🏫 Teaching
 
-- *2026 Spring* ‧ CS4489: Optimization Foundations for AI Training
-  <span class="note">Teaching Assistant</span>
+- *2026 Spring* ‧ CS6487: Topics in Machine Learning
+  <span class="note">Assist Lecturer</span>
 - *2025 Fall* ‧ GE1362: Exploring Generative AI in Practice
   <span class="note">Teaching Assistant</span>
