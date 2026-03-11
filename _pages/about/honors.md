@@ -22,7 +22,7 @@
 
 - *2023.11* ‧ National Second Prize, China Undergraduate Mathematical Contest in Modeling (CUMCM)    
   <span class="note">Top 2% of 180,000 participants.</span>
-  <span class="note">Team members: LIAO Yang, ZHOU Ding-bo.</span>
+  <span class="note">Team members: LIAO Yang, ZHOU Dingbo.</span>
 
 
 
