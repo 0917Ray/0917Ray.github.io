@@ -23,7 +23,7 @@ redirect_from:
 {% include_relative about/teaching.md %}
 {% include_relative about/hobbies.md %}
 {% include_relative about/reading-notes.md %}
-# {% include_relative about/rednote-followers.md %}
+<!-- {% include_relative about/rednote-followers.md %} -->
 <!-- ========================================================================================================================================== -->
 <style>
 /* 只影响正文内容区的超链接 */
