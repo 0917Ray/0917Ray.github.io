@@ -12,7 +12,7 @@ author_profile: true
 
 <!-- 小红书粉丝统计可视化 -->
 
-<div id="fans-wrapper" style="max-width: 800px; margin: 0 auto; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
+<div id="fans-wrapper" style="max-width: 100%; margin: 0 auto; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
 
   <!-- 卡片统计区 -->
 
@@ -64,9 +64,9 @@ author_profile: true
 
   <!-- 图表容器 -->
 
-  <div style="height: 240px;">
+  <div style="height: 400px;">
 
-    <canvas id="fansChart" style="width: 100%; height: 240px;"></canvas>
+    <canvas id="fansChart" style="width: 100%; height: 400px;"></canvas>
 
   </div>
 
@@ -75,12 +75,17 @@ author_profile: true
 
 
 <style>
+  /* 强制让主容器占满可用宽度 */
+  .archive, .page {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
 
   .fans-card {
 
     flex: 1;
 
-    min-width: 160px;
+    min-width: 180px;
 
     background: white;
 
