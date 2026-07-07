@@ -2,7 +2,7 @@
 layout: default
 title: "Rednote Statistics"
 permalink: /rednote/
-author_profile: true
+author_profile: false
 ---
 
 <span class="anchor" id="rednote-followers"></span>
