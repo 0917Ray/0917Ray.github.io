@@ -69,8 +69,8 @@
       {% endif %}
       {% if author.xiaohongshu %}
       <li>
-        <a href="{{ author.xiaohongshu }}" target="_blank" rel="noopener">
-          <i class="fa fa-fw">📕</i> 小红书
+        <a href="{{ author.xiaohongshu }}" target="_blank" rel="noopener" title="小红书">
+          {% include icons/xiaohongshu.svg %} 小红书
         </a>
       </li>
       {% endif %}
@@ -170,11 +170,10 @@
         <a href="https://github.com/{{ author.github }}"><i class="fab fa-fw fa-github" aria-hidden="true"></i></a>
       {% endif %}
       {% if author.xiaohongshu %}
-      <li>
-        <a href="{{ author.xiaohongshu }}" target="_blank" rel="noopener">
-          <i class="fa fa-fw">📕</i> 小红书
+        <a href="{{ author.xiaohongshu }}" target="_blank" rel="noopener" aria-label="小红书" title="小红书">
+          {% include icons/xiaohongshu.svg %}
+          <span class="sr-only">小红书</span>
         </a>
-      </li>
       {% endif %}
       {% if author.stackoverflow %}
         <a href="https://www.stackoverflow.com/users/{{ author.stackoverflow }}"><i class="fab fa-fw fa-stack-overflow" aria-hidden="true"></i></a>

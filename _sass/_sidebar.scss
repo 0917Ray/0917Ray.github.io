@@ -253,6 +253,16 @@
   }
 }
 
+.xiaohongshu-icon {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  margin-right: 0.35em;
+  color: #fff;
+  fill: #ff2442;
+  vertical-align: -0.12em;
+}
+
 .author__urls_sm{
   padding: .25em;
   font-size: 1.75em;
@@ -264,6 +274,14 @@
       text-decoration: underline;
     }
   }
+
+  .xiaohongshu-icon {
+    width: 1em;
+    height: 1em;
+    margin-right: 0;
+    vertical-align: -0.05em;
+  }
+
   @include breakpoint($large) {
     display: none;
   }
