@@ -8,6 +8,7 @@
 # Site Settings
 title                    : "FANG Changrui (方昌瑞)"
 description              : "PhD student at CityUHK"
+url                      : "https://0917ray.github.io"
 repository               : "0917Ray/0917Ray.github.io"
 google_scholar_stats_use_cdn : true
 # can be true
@@ -23,6 +24,7 @@ baidu_site_verification  :  # get baidu_site_verification from https://ziyuan.ba
 # Site Author
 author:
   name             : "FANG Changrui (方昌瑞)"
+  display_name     : "FANG Changrui<br>(方昌瑞)"
   avatar           : "images/android-chrome-512x512.png"
   bio              : "City University of Hong Kong"
   location         : "Kowloon Tong, Hong Kong"

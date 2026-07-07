@@ -1,5 +1,5 @@
 ---
-layout: single
+layout: default
 title: "Rednote Statistics"
 permalink: /rednote/
 author_profile: true
