@@ -57,8 +57,8 @@
           {% endfor %}
         </p>
         <div class="reading-card__descriptions">
-          <p lang="zh-CN">{{ note.description_zh }}</p>
           <p lang="en">{{ note.description_en }}</p>
+          <p lang="zh-CN">{{ note.description_zh }}</p>
         </div>
         <div class="reading-card__links">
           {% if note.source_url %}<a class="reading-card__source-link" href="{{ note.source_url }}" target="_blank" rel="noopener">Source <span aria-hidden="true">↗</span></a>{% else %}<span class="reading-card__source-link reading-card__source-link--disabled">Source</span>{% endif %}
@@ -121,7 +121,7 @@
 .reading-card__separator { color: #a0aaa7; }
 .reading-card__descriptions { flex: 1; }
 .reading-card__descriptions p { margin: 0 0 .48rem; color: #56615f; font-size: .74rem; line-height: 1.55; }
-.reading-card__descriptions p[lang="en"] { color: #7a8582; }
+.reading-card__descriptions p[lang="zh-CN"] { color: #7a8582; }
 .reading-card__links { display: flex; align-items: center; flex-wrap: wrap; gap: .45rem .7rem; padding-top: .7rem; border-top: 1px solid #edf1f0; }
 .page__content .reading-card__links a { padding: 0; color: #62736f; background: none; font-size: .8rem; font-weight: 700; line-height: 1.35; }
 .page__content .reading-card__links a:hover { color: #527f75; background: none; }
@@ -135,7 +135,7 @@ html[data-theme="dark"] .reading-filter { border-color: #52615e; color: #bdc7c4;
 html[data-theme="dark"] .reading-filter.is-active { border-color: #7db5a8; color: #14211e; }
 html[data-theme="dark"] .reading-card { border-color: #43514e; background: #293330; box-shadow: none; }
 html[data-theme="dark"] .reading-card__descriptions p { color: #c2ccca; }
-html[data-theme="dark"] .reading-card__descriptions p[lang="en"] { color: #9faaa7; }
+html[data-theme="dark"] .reading-card__descriptions p[lang="zh-CN"] { color: #9faaa7; }
 html[data-theme="dark"] .reading-card__links { border-color: #43514e; }
 @media (max-width: 1100px) { .reading-notes__grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
 @media (max-width: 800px) { .reading-notes__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
