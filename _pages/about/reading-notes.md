@@ -30,13 +30,17 @@
   <div class="reading-notes__grid" id="reading-notes-grid">
     {% for note in site.data.reading_notes %}
     <article class="reading-card" data-reading-status="{{ note.status }}">
-      <div class="reading-card__cover reading-card__cover--{{ note.cover_theme }}">
-        <div class="reading-card__cover-no">RN · {{ forloop.index | prepend: '0' | slice: -2, 2 }}</div>
-        <div class="reading-card__cover-copy">
-          <span>{{ note.eyebrow }}</span>
-          <strong>{{ note.short_title }}</strong>
-        </div>
-        <div class="reading-card__cover-mark" aria-hidden="true"></div>
+      <div class="reading-card__cover reading-card__cover--{{ note.cover_theme }}{% if note.cover_image %} reading-card__cover--image{% endif %}">
+        {% if note.cover_image %}
+          <img class="reading-card__cover-image" src="{{ note.cover_image | relative_url }}" alt="{{ note.title }} cover" loading="lazy">
+        {% else %}
+          <div class="reading-card__cover-no">RN · {{ forloop.index | prepend: '0' | slice: -2, 2 }}</div>
+          <div class="reading-card__cover-copy">
+            <span>{{ note.eyebrow }}</span>
+            <strong>{{ note.short_title }}</strong>
+          </div>
+          <div class="reading-card__cover-mark" aria-hidden="true"></div>
+        {% endif %}
       </div>
 
       <div class="reading-card__body">
@@ -94,6 +98,9 @@
 .reading-card__cover--coral { background: linear-gradient(145deg, #965d58, #d89985); }
 .reading-card__cover--amber { background: linear-gradient(145deg, #8c7047, #d5ae6b); }
 .reading-card__cover--teal { background: linear-gradient(145deg, #356b6f, #6cb2ac); }
+.reading-card__cover--image { padding: 0; background: #f2f3f5; }
+.reading-card__cover--image::before { display: none; }
+.reading-card__cover-image { display: block; width: 100%; height: 100%; margin: 0; border-radius: 0; object-fit: cover; object-position: center; }
 .reading-card__cover-no { position: relative; z-index: 1; font-size: .65rem; font-weight: 700; letter-spacing: .14em; opacity: .8; }
 .reading-card__cover-copy { position: relative; z-index: 1; display: flex; flex-direction: column; gap: .35rem; max-width: 90%; }
 .reading-card__cover-copy span { font-size: .62rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; opacity: .82; }
@@ -136,7 +143,7 @@ html[data-theme="dark"] .reading-card__links { border-color: #43514e; }
   .reading-notes__heading { align-items: flex-start; flex-direction: column; gap: .8rem; }
   .reading-notes__summary { gap: .8rem; }
   .reading-notes__grid { grid-template-columns: 1fr; }
-  .reading-card__cover { aspect-ratio: 16 / 9; }
+  .reading-card__cover { aspect-ratio: 4 / 3; }
   .reading-card__body { min-height: 0; }
 }
 </style>

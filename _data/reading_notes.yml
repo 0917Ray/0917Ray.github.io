@@ -60,13 +60,14 @@
   status: "completed"
   status_label: "Completed"
   cover_theme: "amber"
+  cover_image: "/images/reading-notes/cs229.webp"
   authors:
     - name: "Stanford University · CS229"
-      url: "https://cs229.stanford.edu/"
+      url: "https://cs229.stanford.edu/syllabus-spring2022.html"
   description_zh: "Stanford CS229 机器学习课程笔记，涵盖监督学习、无监督学习与学习理论。"
   description_en: "Notes from Stanford CS229 on supervised learning, unsupervised learning, and learning theory."
   notes_url: "https://github.com/0917Ray/Reading_Notes/tree/main/CS229"
-  source_url: "https://cs229.stanford.edu/"
+  source_url: "https://youtube.com/playlist?list=PLoROMvodv4rNyWOpJg_Yh4NSqI4Z4vOYy&si=BgmwkznS-lXwwFhm"
 
 - title: "Reinforcement Learning"
   short_title: "Reinforcement Learning"
