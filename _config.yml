@@ -71,6 +71,15 @@ include:
 exclude:
   - docs
   - google_scholar_crawler
+  - _pages/about/about-me.md
+  - _pages/about/educations.md
+  - _pages/about/hobbies.md
+  - _pages/about/honors.md
+  - _pages/about/news.md
+  - _pages/about/publications.md
+  - _pages/about/reading-notes.md
+  - _pages/about/rednote-followers.md
+  - _pages/about/teaching.md
   - "*.sublime-project"
   - "*.sublime-workspace"
   - .asset-cache
