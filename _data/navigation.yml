@@ -22,7 +22,7 @@ main:
     url: "/#hobbies"
 
   - title: "Reading Notes"
-    url: "/#reading-notes"
+    url: "/reading-notes/"
 
   # - title: "Rednote Followers"
   #   url: "/#rednote-followers"

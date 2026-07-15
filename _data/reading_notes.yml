@@ -12,6 +12,7 @@
   description_zh: "数据分析中的优化方法笔记，涵盖基础理论、算法与实际建模思路。"
   description_en: "Notes on optimization theory, algorithms, and modeling techniques for data analysis."
   notes_url: "https://github.com/0917Ray/Reading_Notes/tree/main/Optimization%20for%20Data%20Analysis"
+  github_path: "Optimization for Data Analysis"
   source_url: "https://wrightstephen.github.io/sw_proj/"
 
 - title: "All of Statistics"
@@ -26,6 +27,7 @@
   description_zh: "围绕统计学核心概念、推断方法与理论基础整理的教材笔记。"
   description_en: "Textbook notes covering core statistical concepts, inference, and theory."
   notes_url: "https://github.com/0917Ray/Reading_Notes/tree/main/All%20of%20Statistics"
+  github_path: "All of Statistics"
   source_url: "https://www.stat.cmu.edu/~larry/"
 
 - title: "LLM Tutorial"
@@ -39,6 +41,7 @@
   description_zh: "大语言模型相关基础、训练方法与实践内容的学习记录。"
   description_en: "Learning notes on the foundations, training, and practice of large language models."
   notes_url: "https://github.com/0917Ray/Reading_Notes/tree/main/LLM_Toturial"
+  github_path: "LLM_Toturial"
 
 - title: "Language Modeling from Scratch"
   short_title: "Language Modeling"
@@ -46,12 +49,14 @@
   status: "updating"
   status_label: "Updating"
   cover_theme: "coral"
+  cover_image: "/images/reading-notes/cs336.webp"
   authors:
     - name: "Stanford University · CS336"
       url: "https://stanford-cs336.github.io/spring2025/index.html"
   description_zh: "从零构建语言模型，记录模型架构、训练系统与数据处理等课程内容。"
   description_en: "Course notes on building language models from scratch, from data to training systems."
   notes_url: "https://github.com/0917Ray/Reading_Notes/tree/main/CS336"
+  github_path: "CS336"
   source_url: "https://stanford-cs336.github.io/spring2025/index.html"
 
 - title: "Machine Learning"
@@ -67,6 +72,7 @@
   description_zh: "Stanford CS229 机器学习课程笔记，涵盖监督学习、无监督学习与学习理论。"
   description_en: "Notes from Stanford CS229 on supervised learning, unsupervised learning, and learning theory."
   notes_url: "https://github.com/0917Ray/Reading_Notes/tree/main/CS229"
+  github_path: "CS229"
   source_url: "https://youtube.com/playlist?list=PLoROMvodv4rNyWOpJg_Yh4NSqI4Z4vOYy&si=BgmwkznS-lXwwFhm"
 
 - title: "Reinforcement Learning"
@@ -75,10 +81,12 @@
   status: "completed"
   status_label: "Completed"
   cover_theme: "teal"
+  cover_image: "/images/reading-notes/RL.webp"
   authors:
     - name: "Shiyu Zhao · Westlake University"
       url: "https://www.shiyuzhao.net/"
   description_zh: "强化学习基础课程笔记，包括价值函数、策略方法与经典算法。"
   description_en: "Course notes on value functions, policy methods, and foundational reinforcement learning algorithms."
   notes_url: "https://github.com/0917Ray/Reading_Notes/tree/main/Reinfoce%20Learning"
-  source_url: "https://www.shiyuzhao.net/"
+  github_path: "Reinfoce Learning"
+  source_url: "https://github.com/MathFoundationRL/Book-Mathematical-Foundation-of-Reinforcement-Learning"
