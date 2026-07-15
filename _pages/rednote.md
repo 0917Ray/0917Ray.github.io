@@ -1,6 +1,7 @@
 ---
 layout: default
 title: "Rednote Statistics"
+description: "Interactive statistics and growth trends for my Rednote follower data."
 permalink: /rednote/
 author_profile: false
 ---
@@ -213,10 +214,16 @@ author_profile: false
   }
 </style>
 
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.9/dist/chart.umd.min.js"></script>
 
 <script>
   const SHEET_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQUX3jbmcxIjz_VyFAy33PJzbYPVKPVXIEOSMdoy7bqRPOl-y1n-lZe8pkZ55WYwkQaqGEAQ0D_idrc/pub?output=csv';
+  const FALLBACK_CSV_URL = '{{ "/backup/rednote-followers-latest.csv" | relative_url }}';
+  const REDNOTE_DATA_SOURCES = [
+    { url: SHEET_CSV_URL, name: 'live' },
+    { url: FALLBACK_CSV_URL, name: 'snapshot' }
+  ];
+  const rednoteRequestTimeout = 8000;
   const chartColor = 'rgba(125,181,168,0.95)';
   const fillColor = 'rgba(125,181,168,0.25)';
   const numberFormatter = new Intl.NumberFormat('en-US');
@@ -412,15 +419,40 @@ author_profile: false
     status.className = `rednote-status rednote-status--${type}`;
   }
 
+  async function fetchCsvData() {
+    let lastError;
+
+    for (const source of REDNOTE_DATA_SOURCES) {
+      const controller = typeof AbortController === 'function' ? new AbortController() : null;
+      const timeoutId = controller ? setTimeout(() => controller.abort(), rednoteRequestTimeout) : null;
+
+      try {
+        const response = await fetch(source.url, {
+          cache: 'no-store',
+          signal: controller ? controller.signal : undefined
+        });
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+
+        const text = await response.text();
+        if (!text.trim()) throw new Error('Empty CSV response');
+        return { text, source: source.name };
+      } catch (error) {
+        lastError = error;
+      } finally {
+        if (timeoutId) clearTimeout(timeoutId);
+      }
+    }
+
+    throw lastError || new Error('No Rednote data source available');
+  }
+
   async function fetchData() {
     setStatus('Loading Rednote data...', 'loading');
     document.getElementById('download-csv').disabled = true;
 
     try {
-      const res = await fetch(SHEET_CSV_URL, { cache: 'no-store' });
-      if (!res.ok) throw new Error(`HTTP ${res.status}`);
-
-      rawCsvText = await res.text();
+      const loaded = await fetchCsvData();
+      rawCsvText = loaded.text;
       const rows = parseCsv(rawCsvText);
       const parsedRows = parseFollowerRows(rows);
       if (!parsedRows.length) throw new Error('No valid date/count rows found.');
@@ -439,9 +471,16 @@ author_profile: false
       milestones = buildMilestones(totalData, labels);
       renderYearButtons();
       updateStats();
-      drawChart(chartType);
       document.getElementById('download-csv').disabled = false;
-      setStatus(`Last updated: ${labels.at(-1)} · ${labels.length} days tracked`, 'success');
+      const sourceLabel = loaded.source === 'live' ? 'Live Google Sheet' : 'Saved snapshot';
+
+      if (typeof Chart !== 'function') {
+        setStatus(`Data loaded from ${sourceLabel}, but the chart library is unavailable.`, 'error');
+        return;
+      }
+
+      drawChart(chartType);
+      setStatus(`Last updated: ${labels.at(-1)} · ${labels.length} days tracked · ${sourceLabel}`, 'success');
     } catch (error) {
       console.error(error);
       setStatus(`Failed to load Rednote data. ${error.message}`, 'error');

@@ -33,8 +33,9 @@
     </div>
   {% endunless %}
 
+  {% assign sorted_reading_notes = site.data.reading_notes | sort: "updated_at" | reverse %}
   <div class="reading-notes__grid" data-reading-grid>
-    {% for note in site.data.reading_notes %}
+    {% for note in sorted_reading_notes %}
       {% assign hide_preview_card = false %}
       {% if is_preview and forloop.index > 4 %}{% assign hide_preview_card = true %}{% endif %}
       {% include reading-note-card.html note=note index=forloop.index hidden=hide_preview_card %}
@@ -53,6 +54,8 @@
 
   var repository = '0917Ray/Reading_Notes';
   var apiBase = 'https://api.github.com/repos/' + repository + '/commits?per_page=1&path=';
+  var cacheTtl = 15 * 60 * 1000;
+  var requestTimeout = 8000;
 
   function formatDate(value) {
     var date = new Date(value);
@@ -63,7 +66,10 @@
   function readCache(path) {
     try {
       var cached = JSON.parse(localStorage.getItem('reading-note:' + path));
-      if (cached && Date.now() - cached.cachedAt < 15 * 60 * 1000) return cached;
+      if (cached && cached.date) {
+        cached.fresh = Boolean(cached.cachedAt && Date.now() - cached.cachedAt < cacheTtl);
+        return cached;
+      }
     } catch (error) {}
     return null;
   }
@@ -72,27 +78,51 @@
     try { localStorage.setItem('reading-note:' + path, JSON.stringify(value)); } catch (error) {}
   }
 
+  function readFallback(card) {
+    var date = card.getAttribute('data-fallback-updated-at');
+    if (!date) return null;
+    return {
+      card: card,
+      date: date,
+      url: card.getAttribute('data-fallback-update-url') || '',
+      source: 'site'
+    };
+  }
+
   async function fetchLatest(card) {
     var path = card.getAttribute('data-github-path');
     if (!path) throw new Error('Missing GitHub path');
     var cached = readCache(path);
-    if (cached) return { card: card, date: cached.date, url: cached.url, cached: true };
+    if (cached && cached.fresh) return { card: card, date: cached.date, url: cached.url, source: 'cache' };
 
-    var response = await fetch(apiBase + encodeURIComponent(path), {
-      headers: { Accept: 'application/vnd.github+json', 'X-GitHub-Api-Version': '2022-11-28' },
-      cache: 'no-store'
-    });
-    if (!response.ok) throw new Error('GitHub API ' + response.status);
+    var controller = typeof AbortController === 'function' ? new AbortController() : null;
+    var timeoutId = controller ? setTimeout(function () { controller.abort(); }, requestTimeout) : null;
 
-    var commits = await response.json();
-    var latest = commits[0];
-    var date = latest && latest.commit && latest.commit.committer && latest.commit.committer.date;
-    if (!date && latest && latest.commit && latest.commit.author) date = latest.commit.author.date;
-    if (!date) throw new Error('No commit date');
+    try {
+      var response = await fetch(apiBase + encodeURIComponent(path), {
+        headers: { Accept: 'application/vnd.github+json', 'X-GitHub-Api-Version': '2022-11-28' },
+        cache: 'no-store',
+        signal: controller ? controller.signal : undefined
+      });
+      if (!response.ok) throw new Error('GitHub API ' + response.status);
 
-    var result = { card: card, date: date, url: latest.html_url, cached: false };
-    writeCache(path, { date: date, url: latest.html_url, cachedAt: Date.now() });
-    return result;
+      var commits = await response.json();
+      var latest = commits[0];
+      var date = latest && latest.commit && latest.commit.committer && latest.commit.committer.date;
+      if (!date && latest && latest.commit && latest.commit.author) date = latest.commit.author.date;
+      if (!date) throw new Error('No commit date');
+
+      var result = { card: card, date: date, url: latest.html_url, source: 'live' };
+      writeCache(path, { date: date, url: latest.html_url, cachedAt: Date.now() });
+      return result;
+    } catch (error) {
+      if (cached) return { card: card, date: cached.date, url: cached.url, source: 'stale-cache' };
+      var fallback = readFallback(card);
+      if (fallback) return fallback;
+      throw error;
+    } finally {
+      if (timeoutId) clearTimeout(timeoutId);
+    }
   }
 
   function applyUpdates(root, updates) {
@@ -163,8 +193,10 @@
       applyUpdates(root, updates);
       var sync = root.querySelector('[data-reading-sync]');
       if (sync) {
-        if (updates.length === cards.length) sync.textContent = 'GitHub updates synced';
-        else if (updates.length) sync.textContent = 'Some GitHub updates synced';
+        var freshUpdates = updates.filter(function (item) { return item.source === 'live' || item.source === 'cache'; });
+        if (updates.length === cards.length && freshUpdates.length === cards.length) sync.textContent = 'GitHub updates synced';
+        else if (updates.length === cards.length) sync.textContent = 'Showing latest available updates';
+        else if (updates.length) sync.textContent = 'Some updates available';
         else sync.textContent = 'Showing saved order';
       }
     });

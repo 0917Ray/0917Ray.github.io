@@ -3,4 +3,5 @@ _site/
 vendor/bundle/
 push.sh
 .DS_Store
-backup/
+backup/*
+!backup/rednote-followers-latest.csv

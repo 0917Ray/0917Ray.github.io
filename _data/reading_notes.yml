@@ -13,6 +13,8 @@
   description_en: "Notes on optimization theory, algorithms, and modeling techniques for data analysis."
   notes_url: "https://github.com/0917Ray/Reading_Notes/tree/main/Optimization%20for%20Data%20Analysis"
   github_path: "Optimization for Data Analysis"
+  updated_at: "2025-07-23T15:43:42+08:00"
+  updated_url: "https://github.com/0917Ray/Reading_Notes/commit/3367c3a4cca0631b265ca5f5dc6e982b5f58ec0c"
   source_url: "https://wrightstephen.github.io/sw_proj/"
 
 - title: "All of Statistics"
@@ -28,6 +30,8 @@
   description_en: "Textbook notes covering core statistical concepts, inference, and theory."
   notes_url: "https://github.com/0917Ray/Reading_Notes/tree/main/All%20of%20Statistics"
   github_path: "All of Statistics"
+  updated_at: "2026-06-03T22:59:41+08:00"
+  updated_url: "https://github.com/0917Ray/Reading_Notes/commit/bb9fc6310da97e75983c09de037527e23f989138"
   source_url: "https://www.stat.cmu.edu/~larry/"
 
 - title: "LLM Tutorial"
@@ -42,6 +46,8 @@
   description_en: "Learning notes on the foundations, training, and practice of large language models."
   notes_url: "https://github.com/0917Ray/Reading_Notes/tree/main/LLM_Toturial"
   github_path: "LLM_Toturial"
+  updated_at: "2026-05-07T13:59:04+08:00"
+  updated_url: "https://github.com/0917Ray/Reading_Notes/commit/4cf7d3264dd7d7c9944873364e7a29618fdfa831"
 
 - title: "Language Modeling from Scratch"
   short_title: "Language Modeling"
@@ -57,6 +63,8 @@
   description_en: "Course notes on building language models from scratch, from data to training systems."
   notes_url: "https://github.com/0917Ray/Reading_Notes/tree/main/CS336"
   github_path: "CS336"
+  updated_at: "2025-10-06T18:33:07+08:00"
+  updated_url: "https://github.com/0917Ray/Reading_Notes/commit/777af98c624c168b20fa29baf0b361e8753c0360"
   source_url: "https://stanford-cs336.github.io/spring2025/index.html"
 
 - title: "Machine Learning"
@@ -73,6 +81,8 @@
   description_en: "Notes from Stanford CS229 on supervised learning, unsupervised learning, and learning theory."
   notes_url: "https://github.com/0917Ray/Reading_Notes/tree/main/CS229"
   github_path: "CS229"
+  updated_at: "2026-01-05T17:04:29+08:00"
+  updated_url: "https://github.com/0917Ray/Reading_Notes/commit/940ae696c10daa34cb7ce13212ed6e5ae9f51060"
   source_url: "https://youtube.com/playlist?list=PLoROMvodv4rNyWOpJg_Yh4NSqI4Z4vOYy&si=BgmwkznS-lXwwFhm"
 
 - title: "Reinforcement Learning"
@@ -89,4 +99,6 @@
   description_en: "Course notes on value functions, policy methods, and foundational reinforcement learning algorithms."
   notes_url: "https://github.com/0917Ray/Reading_Notes/tree/main/Reinfoce%20Learning"
   github_path: "Reinfoce Learning"
+  updated_at: "2025-10-03T19:05:27+08:00"
+  updated_url: "https://github.com/0917Ray/Reading_Notes/commit/d899384becad45314bc707c50cc879ba760c3aad"
   source_url: "https://github.com/MathFoundationRL/Book-Mathematical-Foundation-of-Reinforcement-Learning"
