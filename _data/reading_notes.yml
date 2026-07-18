@@ -23,6 +23,7 @@
   status: "updating"
   status_label: "Updating"
   cover_theme: "blue"
+  cover_image: "/images/reading-notes/all_of_statistics.webp"
   authors:
     - name: "Larry Wasserman"
       url: "https://www.stat.cmu.edu/~larry/"
