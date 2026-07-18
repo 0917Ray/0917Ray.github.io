@@ -4,6 +4,7 @@
   status: "updating"
   status_label: "Updating"
   cover_theme: "sage"
+  cover_image: "/images/reading-notes/optimization_for_data_analysis.webp"
   authors:
     - name: "Stephen J. Wright"
       url: "https://wrightstephen.github.io/sw_proj/"
