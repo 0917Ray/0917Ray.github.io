@@ -42,6 +42,7 @@
   status: "updating"
   status_label: "Updating"
   cover_theme: "violet"
+  cover_image: "/images/reading-notes/llm_tutorial.webp"
   authors:
     - name: "Large Language Models"
   description_zh: "大语言模型相关基础、训练方法与实践内容的学习记录。"
