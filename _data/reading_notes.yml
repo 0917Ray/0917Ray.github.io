@@ -61,14 +61,14 @@
   cover_image: "/images/reading-notes/cs336.webp"
   authors:
     - name: "Stanford University · CS336"
-      url: "https://stanford-cs336.github.io/spring2025/index.html"
+      url: "https://cs336.stanford.edu/"
   description_zh: "从零构建语言模型，记录模型架构、训练系统与数据处理等课程内容。"
   description_en: "Course notes on building language models from scratch, from data to training systems."
   notes_url: "https://github.com/0917Ray/Reading_Notes/tree/main/CS336"
   github_path: "CS336"
   updated_at: "2025-10-06T18:33:07+08:00"
   updated_url: "https://github.com/0917Ray/Reading_Notes/commit/777af98c624c168b20fa29baf0b361e8753c0360"
-  source_url: "https://stanford-cs336.github.io/spring2025/index.html"
+  source_url: "https://www.youtube.com/playlist?list=PLoROMvodv4rMqXOcazWaTUHhq-yembLCV"
 
 - title: "Machine Learning"
   short_title: "Machine Learning"
