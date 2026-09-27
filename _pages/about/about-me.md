@@ -8,6 +8,6 @@ My research interest:
 - Optimization: optimization landscape, training dynamics
 <p>
   Here are my CVs(Curriculum Vitae):
-  <a href="https://drive.google.com/file/d/1o9ylZCkhPpjhzNQq3MjY2oKJDbbUHz08/view?usp=sharing">CV in English</a> ・
+  <a href="{{ '/files/Fang_Changrui_cv_PhD.pdf' | relative_url }}">CV in English</a> ・
   <a href="https://drive.google.com/file/d/1dT1rMi2gaGKwHVtpV89YlYGM1c2sl__V/view?usp=sharing">CV in Chinese</a>
 </p>
