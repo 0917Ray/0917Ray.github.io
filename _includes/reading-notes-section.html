@@ -1,9 +1,9 @@
 {% assign is_preview = include.preview | default: false %}
 <section class="reading-notes{% if is_preview %} reading-notes--preview{% else %} reading-notes--page{% endif %}" data-reading-notes data-reading-preview="{{ is_preview }}" aria-labelledby="reading-notes-title">
+  {% unless is_preview %}<h1 id="reading-notes-title">📝 Reading Notes</h1>{% endunless %}
   <div class="reading-notes__heading">
     <div class="reading-notes__heading-copy">
-      <p class="reading-notes__eyebrow">Knowledge archive</p>
-      <h1 id="reading-notes-title">📝 Reading Notes{% if is_preview %} <span class="reading-notes__title-note">(Latest updates)</span>{% endif %}</h1>
+      {% if is_preview %}<h1 id="reading-notes-title">📝 Reading Notes <span class="reading-notes__title-note">(Latest updates)</span></h1>{% endif %}
       <p class="reading-notes__intro">A growing collection of my notes on textbooks, courses, and technical materials.</p>
     </div>
     <div class="reading-notes__heading-actions">
@@ -27,8 +27,11 @@
   {% unless is_preview %}
     <div class="reading-notes__filters" role="group" aria-label="Filter reading notes by status">
       <button class="reading-filter is-active" type="button" data-reading-filter="all" aria-pressed="true">All</button>
+      <span class="reading-notes__filter-separator" aria-hidden="true">·</span>
       <button class="reading-filter" type="button" data-reading-filter="updating" aria-pressed="false">Updating</button>
+      <span class="reading-notes__filter-separator" aria-hidden="true">·</span>
       <button class="reading-filter" type="button" data-reading-filter="completed" aria-pressed="false">Completed</button>
+      <span class="reading-notes__filter-separator" aria-hidden="true">·</span>
       <button class="reading-filter" type="button" data-reading-filter="planned" aria-pressed="false">Planned</button>
     </div>
   {% endunless %}

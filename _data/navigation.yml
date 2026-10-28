@@ -28,3 +28,6 @@ main:
   #   url: "/#rednote-followers"
   - title: "Rednote"
     url: /rednote/
+
+  - title: "Posts"
+    url: "/posts/"

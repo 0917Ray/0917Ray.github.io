@@ -4,6 +4,7 @@ title: "Rednote Statistics"
 description: "Interactive statistics and growth trends for my Rednote follower data."
 permalink: /rednote/
 author_profile: false
+rednote_page: true
 ---
 
 <span class="anchor" id="rednote-followers"></span>
@@ -46,12 +47,6 @@ author_profile: false
 </div>
 
 <style>
-  .archive,
-  .page {
-    width: 100% !important;
-    max-width: 100% !important;
-  }
-
   #fans-wrapper {
     --rednote-milestone-color: rgba(201, 91, 99, 0.88);
     --rednote-milestone-line: rgba(201, 91, 99, 0.38);

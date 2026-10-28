@@ -51,15 +51,6 @@
     line-height: 1.4;
   }
 
-  &__eyebrow {
-    margin: 0 0 .45rem;
-    color: #7a8582;
-    font-size: .68rem;
-    font-weight: 800;
-    letter-spacing: .12em;
-    text-transform: uppercase;
-  }
-
   &__intro {
     max-width: 38rem;
     margin: 0;
@@ -149,10 +140,13 @@
 
   &__filters {
     display: flex;
+    align-items: center;
     flex-wrap: wrap;
-    gap: .45rem;
+    gap: .65rem;
     margin-bottom: 1.25rem;
   }
+
+  &__filter-separator { color: #9aa6a2; }
 
   &__grid {
     display: grid;
@@ -177,27 +171,30 @@
 
 .reading-filter {
   appearance: none;
-  border: 1px solid #dce5e2;
-  border-radius: 999px;
-  padding: .43rem .88rem;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  border-radius: 0;
+  padding: .6rem .1rem;
   background: transparent;
   color: #65716e;
   cursor: pointer;
   font: inherit;
-  font-size: .78rem;
-  font-weight: 700;
-  transition: .2s ease;
+  font-size: .85rem;
+  font-weight: 400;
+  transition: color .2s ease, border-color .2s ease;
 
   &:hover {
-    border-color: #8fbeb3;
     color: #527f75;
   }
 
+  &:focus-visible {
+    outline: 2px solid #7db5a8;
+    outline-offset: 3px;
+  }
+
   &.is-active {
-    border-color: #7db5a8;
-    background: #7db5a8;
-    box-shadow: 0 4px 12px rgba(77, 130, 117, .18);
-    color: #fff;
+    border-bottom-color: #7db5a8;
+    color: #527f75;
   }
 }
 
@@ -436,13 +433,13 @@
 html[data-theme="dark"] {
   .reading-notes {
     &__heading h1 { color: #e4eae8; }
-    &__eyebrow, &__intro, &__summary, &__sync, &__title-note { color: #aab4b2; }
+    &__intro, &__summary, &__sync, &__title-note { color: #aab4b2; }
     &__summary strong { color: #e4eae8; }
     &__empty { border-color: #43514e; color: #9faaa7; }
   }
 
-  .reading-filter { border-color: #52615e; color: #bdc7c4; }
-  .reading-filter.is-active { border-color: #7db5a8; color: #14211e; }
+  .reading-filter { color: #bdc7c4; }
+  .reading-filter:hover, .reading-filter.is-active { color: #8fd0c1; }
 
   .reading-card {
     border-color: #43514e;
