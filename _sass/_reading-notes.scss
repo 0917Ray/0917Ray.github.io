@@ -70,6 +70,12 @@
     &:focus-visible { outline: 2px solid #7db5a8; outline-offset: 3px; }
   }
 
+  &__stars {
+    margin-left: .25rem;
+    color: #7a8582;
+    font-variant-numeric: tabular-nums;
+  }
+
   &__all {
     display: inline-flex;
     flex: 0 0 auto;
@@ -410,6 +416,7 @@ html[data-theme="dark"] {
     &__summary strong { color: #c2ccca; }
     &__github, &__github:visited { color: #8fd0c1; }
     &__github:hover { color: #a8e0d5; }
+    &__stars { color: #aab4b2; }
     &__empty { border-color: #43514e; color: #9faaa7; }
   }
 
