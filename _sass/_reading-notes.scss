@@ -59,6 +59,9 @@
   }
 
   &__github {
+    display: inline-flex;
+    align-items: center;
+    gap: .5rem;
     margin-left: auto;
     color: #7db5a8;
     font-size: inherit;
@@ -71,9 +74,11 @@
   }
 
   &__stars {
-    margin-left: .25rem;
-    color: #7a8582;
-    font-variant-numeric: tabular-nums;
+    width: auto;
+    height: 18px;
+    margin: 0;
+    border-radius: 0;
+    vertical-align: middle;
   }
 
   &__all {
@@ -416,7 +421,6 @@ html[data-theme="dark"] {
     &__summary strong { color: #c2ccca; }
     &__github, &__github:visited { color: #8fd0c1; }
     &__github:hover { color: #a8e0d5; }
-    &__stars { color: #aab4b2; }
     &__empty { border-color: #43514e; color: #9faaa7; }
   }
 
