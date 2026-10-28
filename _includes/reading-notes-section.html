@@ -6,22 +6,22 @@
       {% if is_preview %}<h1 id="reading-notes-title">📝 Reading Notes <span class="reading-notes__title-note">(Latest updates)</span></h1>{% endif %}
       <p class="reading-notes__intro">A growing collection of my notes on textbooks, courses, and technical materials.</p>
     </div>
-    <div class="reading-notes__heading-actions">
-      <a class="reading-notes__github" href="https://github.com/0917Ray/Reading_Notes" target="_blank" rel="noopener">
-        <span><i class="fab fa-github" aria-hidden="true"></i> View repository</span>
-        <img class="reading-notes__stars" src="https://img.shields.io/github/stars/0917Ray/Reading_Notes?style=flat-square&amp;color=7db5a8" alt="GitHub stars">
-      </a>
-      {% if is_preview %}
+    {% if is_preview %}
+      <div class="reading-notes__heading-actions">
         <a class="reading-notes__all" href="{{ '/reading-notes/' | relative_url }}" target="_self">View all notes <span aria-hidden="true">↗</span></a>
-      {% endif %}
-    </div>
+      </div>
+    {% endif %}
   </div>
 
   <div class="reading-notes__summary" aria-label="Reading notes summary">
-    <span><strong data-reading-count="all">{{ site.data.reading_notes | size }}</strong> notes</span>
-    <span><strong data-reading-count="updating">{{ site.data.reading_notes | where: "status", "updating" | size }}</strong> updating</span>
-    <span><strong data-reading-count="completed">{{ site.data.reading_notes | where: "status", "completed" | size }}</strong> completed</span>
-    <span class="reading-notes__sync" data-reading-sync aria-live="polite">Checking GitHub updates…</span>
+    <div class="reading-notes__counts" data-reading-sync title="Checking GitHub updates…">
+      <span><strong data-reading-count="all">{{ site.data.reading_notes | size }}</strong> notes</span>
+      <span aria-hidden="true">·</span>
+      <span><strong data-reading-count="updating">{{ site.data.reading_notes | where: "status", "updating" | size }}</strong> updating</span>
+      <span aria-hidden="true">·</span>
+      <span><strong data-reading-count="completed">{{ site.data.reading_notes | where: "status", "completed" | size }}</strong> completed</span>
+    </div>
+    <a class="reading-notes__github" href="https://github.com/0917Ray/Reading_Notes" target="_blank" rel="noopener">GitHub <span aria-hidden="true">↗</span></a>
   </div>
 
   {% unless is_preview %}
@@ -197,10 +197,10 @@
       var sync = root.querySelector('[data-reading-sync]');
       if (sync) {
         var freshUpdates = updates.filter(function (item) { return item.source === 'live' || item.source === 'cache'; });
-        if (updates.length === cards.length && freshUpdates.length === cards.length) sync.textContent = 'GitHub updates synced';
-        else if (updates.length === cards.length) sync.textContent = 'Showing latest available updates';
-        else if (updates.length) sync.textContent = 'Some updates available';
-        else sync.textContent = 'Showing saved order';
+        if (updates.length === cards.length && freshUpdates.length === cards.length) sync.title = 'GitHub updates synced';
+        else if (updates.length === cards.length) sync.title = 'Showing latest available updates';
+        else if (updates.length) sync.title = 'Some updates available';
+        else sync.title = 'Showing saved order';
       }
     });
   });

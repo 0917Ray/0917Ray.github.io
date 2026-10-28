@@ -59,29 +59,15 @@
   }
 
   &__github {
-    display: inline-flex;
-    flex: 0 0 auto;
-    align-items: center;
-    gap: .65rem;
-    padding: .5rem .65rem .5rem .8rem !important;
-    border: 1px solid rgba(125, 181, 168, .42);
-    border-radius: .6rem !important;
-    color: #527f75 !important;
-    background: rgba(125, 181, 168, .07) !important;
-    font-size: .78rem;
-    font-weight: 700;
-    text-decoration: none !important;
+    margin-left: auto;
+    color: #7db5a8;
+    font-size: inherit;
+    text-decoration: none;
+    white-space: nowrap;
 
-    > span {
-      display: inline-flex;
-      align-items: center;
-      gap: .4rem;
-    }
-
-    &:hover {
-      border-color: #7db5a8;
-      background: rgba(125, 181, 168, .14) !important;
-    }
+    &:visited { color: #7db5a8; }
+    &:hover { color: #69a194; text-decoration: underline; }
+    &:focus-visible { outline: 2px solid #7db5a8; outline-offset: 3px; }
   }
 
   &__all {
@@ -105,37 +91,24 @@
     }
   }
 
-  &__stars {
-    width: auto;
-    height: 18px;
-    margin: 0;
-    border-radius: 0;
-    vertical-align: middle;
-  }
-
   &__summary {
     display: flex;
-    align-items: center;
+    align-items: baseline;
     flex-wrap: wrap;
-    gap: 1.25rem;
+    gap: .5rem 1rem;
     margin: 1.1rem 0 1.15rem;
     color: #7a8582;
-    font-size: .75rem;
-    letter-spacing: .06em;
-    text-transform: uppercase;
+    font-size: .8rem;
 
-    strong {
-      color: #344642;
-      font-size: .9rem;
-    }
+    strong { color: #56615f; font-weight: 600; }
   }
 
-  &__sync {
-    margin-left: auto;
-    color: #9aa6a2;
-    font-size: .68rem;
-    letter-spacing: .03em;
-    text-transform: none;
+  &__counts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .4rem;
+
+    > span { white-space: nowrap; }
   }
 
   &__filters {
@@ -433,8 +406,10 @@
 html[data-theme="dark"] {
   .reading-notes {
     &__heading h1 { color: #e4eae8; }
-    &__intro, &__summary, &__sync, &__title-note { color: #aab4b2; }
-    &__summary strong { color: #e4eae8; }
+    &__intro, &__summary, &__title-note { color: #aab4b2; }
+    &__summary strong { color: #c2ccca; }
+    &__github, &__github:visited { color: #8fd0c1; }
+    &__github:hover { color: #a8e0d5; }
     &__empty { border-color: #43514e; color: #9faaa7; }
   }
 
@@ -476,8 +451,7 @@ html[data-theme="dark"] {
     &__heading { align-items: flex-start; flex-direction: column; gap: .8rem; }
     &__heading-actions { width: 100%; flex-wrap: wrap; justify-content: flex-start; }
     &__all { margin-left: auto; }
-    &__summary { gap: .8rem; }
-    &__sync { width: 100%; margin-left: 0; }
+    &__github { flex-basis: 100%; margin-left: 0; }
     &__grid { grid-template-columns: 1fr; }
   }
 
