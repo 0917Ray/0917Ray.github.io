@@ -1,16 +1,17 @@
 {% assign is_preview = include.preview | default: false %}
 <section class="reading-notes{% if is_preview %} reading-notes--preview{% else %} reading-notes--page{% endif %}" data-reading-notes data-reading-preview="{{ is_preview }}" aria-labelledby="reading-notes-title">
-  {% unless is_preview %}<h1 id="reading-notes-title">📝 Reading Notes</h1>{% endunless %}
+  <div class="reading-notes__title-row">
+    <h1 id="reading-notes-title">📝 Reading Notes{% if is_preview %} <span class="reading-notes__title-note">(Latest updates)</span>{% endif %}</h1>
+    <a class="reading-notes__stars-link" href="https://github.com/0917Ray/Reading_Notes" target="_blank" rel="noopener">
+      <img class="reading-notes__stars" src="https://img.shields.io/github/stars/0917Ray/Reading_Notes?style=flat-square&amp;color=7db5a8" alt="GitHub stars">
+    </a>
+  </div>
   <div class="reading-notes__heading">
-    <div class="reading-notes__heading-copy">
-      {% if is_preview %}<h1 id="reading-notes-title">📝 Reading Notes <span class="reading-notes__title-note">(Latest updates)</span></h1>{% endif %}
-      <p class="reading-notes__intro">A growing collection of my notes on textbooks, courses, and technical materials.</p>
+    <p class="reading-notes__intro">A growing collection of my notes on textbooks, courses, and technical materials.</p>
+    <div class="reading-notes__heading-actions">
+      <a class="reading-notes__all" href="{{ '/reading-notes/' | relative_url }}" target="_self">View all notes</a>
+      <a class="reading-notes__github" href="https://github.com/0917Ray/Reading_Notes" target="_blank" rel="noopener">GitHub</a>
     </div>
-    {% if is_preview %}
-      <div class="reading-notes__heading-actions">
-        <a class="reading-notes__all" href="{{ '/reading-notes/' | relative_url }}" target="_self">View all notes <span aria-hidden="true">↗</span></a>
-      </div>
-    {% endif %}
   </div>
 
   <div class="reading-notes__summary" aria-label="Reading notes summary">
@@ -21,10 +22,6 @@
       <span aria-hidden="true">·</span>
       <span><strong data-reading-count="completed">{{ site.data.reading_notes | where: "status", "completed" | size }}</strong> completed</span>
     </div>
-    <a class="reading-notes__github" href="https://github.com/0917Ray/Reading_Notes" target="_blank" rel="noopener">
-      <span>GitHub <span aria-hidden="true">↗</span></span>
-      <img class="reading-notes__stars" src="https://img.shields.io/github/stars/0917Ray/Reading_Notes?style=flat-square&amp;color=7db5a8" alt="GitHub stars">
-    </a>
   </div>
 
   {% unless is_preview %}

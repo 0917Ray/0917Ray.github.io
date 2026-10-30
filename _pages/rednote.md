@@ -58,17 +58,16 @@ rednote_page: true
 
   .rednote-status {
     margin-bottom: 14px;
-    padding: 10px 12px;
-    border: 1px solid rgba(125, 181, 168, 0.35);
-    border-radius: 6px;
-    background: rgba(125, 181, 168, 0.08);
+    padding: 8px 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
     color: #4b625c;
     font-size: 0.9rem;
   }
 
   .rednote-status--error {
     border-color: rgba(207, 10, 36, 0.35);
-    background: rgba(207, 10, 36, 0.08);
     color: #a20e24;
   }
 
@@ -119,7 +118,7 @@ rednote_page: true
   .rednote-control-group {
     display: flex;
     flex-wrap: wrap;
-    gap: 8px;
+    gap: 16px;
   }
 
   #chart-buttons {
@@ -129,19 +128,32 @@ rednote_page: true
   }
 
   #fans-wrapper button {
-    border: none;
-    background: rgba(125, 181, 168, 0.65);
-    color: white;
-    border-radius: 6px;
-    padding: 6px 12px;
+    border: 0;
+    border-bottom: 3px solid transparent;
+    background: transparent;
+    color: #65716e;
+    border-radius: 0;
+    padding: 6px 0;
     cursor: pointer;
     font-size: 0.9rem;
+    font-weight: 400;
   }
 
   #fans-wrapper button:hover,
   #fans-wrapper button.active {
-    background: rgb(105, 161, 148);
-    font-weight: bold;
+    color: #69a194;
+    border-bottom-color: #7db5a8;
+  }
+
+  #fans-wrapper button:focus-visible {
+    outline: 2px solid #7db5a8;
+    outline-offset: 3px;
+  }
+
+  #fans-wrapper .rednote-download-button {
+    color: #7db5a8;
+    border-bottom-color: #7db5a8;
+    font-weight: 600;
   }
 
   #fans-wrapper button:disabled {
@@ -163,8 +175,6 @@ rednote_page: true
   }
 
   html[data-theme="dark"] .rednote-status {
-    border-color: #30363d;
-    background: #161b22;
     color: #d8dee9;
   }
 
@@ -180,13 +190,16 @@ rednote_page: true
   }
 
   html[data-theme="dark"] #fans-wrapper button {
-    background: #273c38;
+    color: #bdc7c4;
   }
 
   html[data-theme="dark"] #fans-wrapper button:hover,
   html[data-theme="dark"] #fans-wrapper button.active {
-    background: #7db5a8;
-    color: #0d1117;
+    color: #8fd0c1;
+  }
+
+  html[data-theme="dark"] #fans-wrapper .rednote-download-button {
+    color: #8fd0c1;
   }
 
   html[data-theme="dark"] #chart-buttons {
@@ -204,7 +217,6 @@ rednote_page: true
   @media (max-width: 520px) {
     .rednote-download-button {
       margin-left: 0;
-      width: 100%;
     }
   }
 </style>
