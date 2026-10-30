@@ -72,8 +72,8 @@ tail -f train.log        # Follow a log file (Ctrl+C to stop)
 ### Processes
 
 ```bash
-ps -u "$USER" -f          # List your processes and their PIDs
-pgrep -af 'train.py'      # Find processes matching the script name
+ps -u "$USER" -f         # List your processes and their PIDs
+pgrep -af 'train.py'     # Find processes matching the script name
 top                      # Monitor processes (P: CPU, M: memory, q: quit)
 htop                     # Interactive monitor (F3: search, F6: sort, F10: quit)
 kill PID                 # Request termination (replace PID with the process ID)

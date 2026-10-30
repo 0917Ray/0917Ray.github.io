@@ -30,8 +30,14 @@
   .post-meta { color: $gray; font-size: .85rem; }
   .highlighter-rouge .highlight { font-size: .85rem; }
   .highlighter-rouge, figure.highlight {
-    border-width: 1px;
-    border-color: rgba(125, 181, 168, .5);
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+    background: #fcfcfc;
+    padding: .7rem 0;
+
+    &::before { display: none; }
+    pre { margin: 0; line-height: 1.9; }
   }
   .highlight .nb, .highlight .nv { color: #527f75; }
 
@@ -57,11 +63,9 @@ html[data-theme="dark"] .page--posts {
   thead { background: rgba(125, 181, 168, .12); }
   td { border-color: rgba(125, 181, 168, .45); }
   .highlighter-rouge {
-    border-color: rgba(125, 181, 168, .5);
-    background: #161b22;
+    background: #141920;
     color: #d8dee9;
 
-    &::before { background: #202a33; }
     .highlight span { color: inherit; }
     .highlight .c, .highlight .c1 { color: #aab4b2; }
     .highlight .s1, .highlight .s2 { color: #8fd0c1; }
