@@ -8,6 +8,9 @@ posts_page: true
 
 <h1>{{ page.title | escape }}</h1>
 
-<p class="post-meta">{{ page.date | date: "%B %-d, %Y" }}{% if page.category %} · {{ page.category | escape }}{% endif %}</p>
+
 
 {{ content }}
+
+{% assign last_updated = page.updated | default: page.date %}
+<p class="post-meta post-updated">Published: <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%Y-%m-%d" }}</time> · Last updated: <time datetime="{{ last_updated | date: '%Y-%m-%d' }}">{{ last_updated | date: "%Y-%m-%d" }}</time>{% for tag in page.tags %} · {{ tag | escape }}{% endfor %}</p>

@@ -28,6 +28,33 @@
   }
 
   .post-meta { color: $gray; font-size: .85rem; }
+  .post-updated { margin-top: 2rem; }
+  .post-entry[hidden] { display: none; }
+
+  .post-filters {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: .65rem;
+    margin: 1.25rem 0;
+  }
+  .post-filter-separator { color: #9aa6a2; }
+  .post-filter {
+    appearance: none;
+    border: 0;
+    border-bottom: 3px solid transparent;
+    border-radius: 0;
+    background: transparent;
+    padding: .6rem .1rem;
+    color: #65716e;
+    cursor: pointer;
+    font: inherit;
+    font-size: .85rem;
+
+    &:hover { color: #527f75; }
+    &.is-active { border-bottom-color: #7db5a8; color: #527f75; }
+    &:focus-visible { outline: 2px solid #7db5a8; outline-offset: 3px; }
+  }
   .highlighter-rouge .highlight { font-size: .85rem; }
   div.highlighter-rouge, figure.highlight {
     border: 0;
@@ -60,6 +87,8 @@ html[data-theme="dark"] .page--posts {
   }
 
   .post-meta { color: #aab4b2; }
+  .post-filter { color: #bdc7c4; }
+  .post-filter:hover, .post-filter.is-active { color: #8fd0c1; }
   thead { background: rgba(125, 181, 168, .12); }
   td { border-color: rgba(125, 181, 168, .45); }
   div.highlighter-rouge {

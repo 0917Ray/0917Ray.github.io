@@ -7,7 +7,7 @@ redirect_from:
   - /wiki/command-line/
 date: 2026-10-28 00:00:00 +0800
 updated: 2026-10-30
-category: "Tools"
+tags: [Tools]
 lang: en
 ---
 

@@ -5,7 +5,7 @@ description: "LaTeX examples for a single figure and two figures side by side."
 permalink: /posts/figure-reference/
 date: 2026-11-02 00:00:00 +0800
 updated: 2026-11-02
-category: "Tools"
+tags: [Tools]
 lang: en
 ---
 
