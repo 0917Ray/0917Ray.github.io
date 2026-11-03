@@ -28,6 +28,16 @@
   }
 
   .post-meta { color: $gray; font-size: .85rem; }
+  .post-languages {
+    display: flex;
+    gap: 1rem;
+    margin: 1rem 0;
+    font-size: .85rem;
+
+    a { padding: .3rem 0; border-bottom: 3px solid transparent; }
+    a[aria-current="page"] { border-bottom-color: #7db5a8; }
+  }
+  .post-entry-languages { font-size: .85rem; }
   .post-updated { margin-top: 2rem; }
   .post-entry[hidden] { display: none; }
 

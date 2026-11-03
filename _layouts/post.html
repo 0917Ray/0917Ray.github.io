@@ -4,7 +4,18 @@ author_profile: false
 posts_page: true
 ---
 
-<p><a href="{{ '/posts/' | relative_url }}">Back to Posts</a></p>
+{% assign is_chinese = false %}
+{% if page.lang == 'zh-CN' %}{% assign is_chinese = true %}{% endif %}
+<p><a href="{{ '/posts/' | relative_url }}">{% if is_chinese %}返回 Posts{% else %}Back to Posts{% endif %}</a></p>
+{% assign translation_sources = site.posts %}
+{% assign translations = translation_sources | where: "translation_key", page.translation_key | sort: "lang" %}
+{% if page.translation_key and translations.size > 1 %}
+<nav class="post-languages" aria-label="{% if is_chinese %}文章语言{% else %}Article language{% endif %}">
+  {% for translation in translations %}
+    <a href="{{ translation.url | relative_url }}" lang="{{ translation.lang }}" hreflang="{{ translation.lang }}"{% if translation.lang == page.lang %} aria-current="page"{% endif %}>{% if translation.lang == 'zh-CN' %}中文{% else %}English{% endif %}</a>
+  {% endfor %}
+</nav>
+{% endif %}
 
 <h1>{{ page.title | escape }}</h1>
 
@@ -13,4 +24,4 @@ posts_page: true
 {{ content }}
 
 {% assign last_updated = page.updated | default: page.date %}
-<p class="post-meta post-updated">Published: <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%Y-%m-%d" }}</time> · Last updated: <time datetime="{{ last_updated | date: '%Y-%m-%d' }}">{{ last_updated | date: "%Y-%m-%d" }}</time>{% for tag in page.tags %} · {{ tag | escape }}{% endfor %}</p>
+<p class="post-meta post-updated">{% if is_chinese %}发布于：{% else %}Published: {% endif %}<time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%Y-%m-%d" }}</time> · {% if is_chinese %}最后更新：{% else %}Last updated: {% endif %}<time datetime="{{ last_updated | date: '%Y-%m-%d' }}">{{ last_updated | date: "%Y-%m-%d" }}</time>{% for tag in page.tags %} · {{ tag | escape }}{% endfor %}</p>

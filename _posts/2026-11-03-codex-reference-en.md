@@ -7,6 +7,7 @@ date: 2026-11-03 00:00:00 +0800
 updated: 2026-11-03
 tags: [Tools]
 lang: en
+translation_key: codex-reference
 ---
 
 ## Start and resume

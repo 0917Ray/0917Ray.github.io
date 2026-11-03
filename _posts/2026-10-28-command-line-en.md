@@ -9,6 +9,7 @@ date: 2026-10-28 00:00:00 +0800
 updated: 2026-10-30
 tags: [Tools]
 lang: en
+translation_key: command-line
 ---
 
 ## Basic tmux usage

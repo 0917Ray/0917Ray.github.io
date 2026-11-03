@@ -7,6 +7,7 @@ date: 2026-11-02 00:00:00 +0800
 updated: 2026-11-02
 tags: [Tools]
 lang: en
+translation_key: figure-reference
 ---
 
 Examples for a single-column document. Replace the PDF filenames with your own image paths.

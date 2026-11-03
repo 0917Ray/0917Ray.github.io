@@ -27,3 +27,11 @@
 {% endif %}
 
 <!-- end custom head snippets -->
+
+{% if page.translation_key %}
+  {% assign translation_sources = site.posts %}
+  {% assign translations = translation_sources | where: "translation_key", page.translation_key %}
+  {% for translation in translations %}
+<link rel="alternate" hreflang="{{ translation.lang }}" href="{{ translation.url | absolute_url }}">
+  {% endfor %}
+{% endif %}

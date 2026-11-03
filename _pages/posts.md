@@ -24,12 +24,18 @@ Notes and thoughts on research, tools, and everyday life.
 </div>
 
 <div data-post-list>
-{% for post in site.posts %}
+{% assign primary_posts = site.posts | where: "lang", "en" %}
+{% for post in primary_posts %}
   {% assign last_updated = post.updated | default: post.date %}
   <article class="post-entry" data-post-tags="{{ post.tags | jsonify | escape }}">
     <h2><a href="{{ post.url | relative_url }}">{{ post.title | escape }}</a></h2>
     <p class="post-meta">Last updated: <time datetime="{{ last_updated | date: '%Y-%m-%d' }}">{{ last_updated | date: "%Y-%m-%d" }}</time>{% for tag in post.tags %} · {{ tag | escape }}{% endfor %}</p>
     <p>{{ post.description | escape }}</p>
+    {% if post.translation_key %}
+      {% assign chinese_versions = site.posts | where: "translation_key", post.translation_key | where: "lang", "zh-CN" %}
+      {% assign chinese_post = chinese_versions | first %}
+      {% if chinese_post %}<p class="post-entry-languages"><a href="{{ post.url | relative_url }}" lang="en">English</a> · <a href="{{ chinese_post.url | relative_url }}" lang="zh-CN">中文</a></p>{% endif %}
+    {% endif %}
   </article>
 {% endfor %}
 </div>
