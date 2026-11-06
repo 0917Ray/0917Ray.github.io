@@ -11,6 +11,11 @@ source "https://rubygems.org"
 
 gem "github-pages", group: :jekyll_plugins
 
+# Jekyll 3.9's logger expects the API shipped with older Ruby releases.
+gem "logger", "~> 1.5.0"
+# WEBrick is no longer bundled with Ruby 3.
+gem "webrick", "~> 1.9"
+
 # If you want to use Jekyll native, uncomment the line below.
 # To upgrade, run `bundle update`.
 

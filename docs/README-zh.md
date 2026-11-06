@@ -54,6 +54,25 @@ AcadHomepage
 
 ## 本地调试
 
+本项目在 macOS 上使用 Homebrew Ruby 3.3。首次安装依赖：
+
+```bash
+brew install ruby@3.3
+export PATH="$(brew --prefix ruby@3.3)/bin:$PATH"
+gem install bundler -v 2.2.19
+bundle _2.2.19_ install
+```
+
+在项目目录启动预览（跳过小红书表格备份）：
+
+```bash
+REDNOTE_BACKUP_ON_PREVIEW=0 bash run_server.sh --livereload
+```
+
+打开 <http://127.0.0.1:4000/posts/>。修改 Markdown 后会自动重新生成；按 `Ctrl+C` 停止服务。启动脚本会自动选择 Homebrew Ruby 3.3，无需修改系统 Ruby。
+
+文章按 `_posts/<文章名>/YYYY-MM-DD-文章名-zh.md` 组织，配图保存在同目录下的 `figures/`。当前 Entropy-SGD 和 SAM 的静态图片入口位于 `images/posts/`，通过指向对应 `figures/` 的相对符号链接发布原文件。
+
 1. 使用`git clone`将本项目克隆到本地。
 1. 安装Jekyll的构建环境，包括`Ruby`、`RubyGems`、`GCC`和`Make`。可参考[该教程](https://jekyllrb.com/docs/installation/#requirements)。
 1. 运行 `bash run_server.sh` 来启动Jekyll实时重载服务器。
