@@ -5,7 +5,7 @@ title: "命令行速查"
 description: "tmux 与日常终端命令的简明参考。"
 permalink: /posts/command-line/zh/
 date: 2026-10-28 00:00:00 +0800
-updated: 2026-10-30
+updated: 2026-11-07
 tags: [Tools]
 lang: zh-CN
 translation_key: command-line
@@ -19,7 +19,10 @@ translation_key: command-line
 tmux new -s train        # 创建名为 train 的会话
 tmux ls                  # 列出会话
 tmux attach -t train     # 恢复会话
+tmux kill-session -t train  # 删除名为 train 的会话
 ```
+
+将 `train` 替换为 `tmux ls` 中显示的会话名称。删除会话会关闭其中的所有窗口和窗格，并终止其中运行的任务。
 
 使用默认快捷键时，先按 **Ctrl+b**，松开两个键，再按：
 

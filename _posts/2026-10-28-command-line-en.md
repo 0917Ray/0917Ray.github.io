@@ -6,7 +6,7 @@ permalink: /posts/command-line/
 redirect_from:
   - /wiki/command-line/
 date: 2026-10-28 00:00:00 +0800
-updated: 2026-10-30
+updated: 2026-11-07
 tags: [Tools]
 lang: en
 translation_key: command-line
@@ -20,7 +20,10 @@ Keep a terminal session running after disconnecting from SSH. Run these commands
 tmux new -s train        # Create a session named train
 tmux ls                  # List sessions
 tmux attach -t train     # Reattach to the session
+tmux kill-session -t train  # Delete the session named train
 ```
+
+Replace `train` with the session name shown by `tmux ls`. Deleting a session closes all its windows and panes and terminates the tasks running inside them.
 
 With the default bindings, press **Ctrl+b**, release both keys, then press:
 
